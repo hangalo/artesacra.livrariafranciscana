@@ -3,6 +3,7 @@ package artesacra.mb;
 
 import artesacra.dao.SaidaMateriaPrimaDAO;
 import artesacra.modelo.SaidaMateriaPrima;
+import artesacra.modelo.TipoProduto;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -37,7 +38,6 @@ public class SaidaMateriaPrimaBean {
 
   
 
-    
     
    
 }

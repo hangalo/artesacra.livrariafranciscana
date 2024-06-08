@@ -23,8 +23,6 @@ import javax.enterprise.context.SessionScoped;
 
 @Named(value = "produtoMBean")
 @ViewScoped
-//@SessionScoped
-//@RequestScoped
 public class ProdutoMBean implements Serializable {
 
     @Inject

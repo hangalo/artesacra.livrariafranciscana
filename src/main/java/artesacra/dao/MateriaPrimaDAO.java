@@ -29,7 +29,9 @@ public class MateriaPrimaDAO {
     private static final String SELECT_BY_CODIGO = "SELECT id_produto, nome_produto, data_expira_produto, preco_venda_produto, quantidade_stock_produto, colocacao_localizacao, tp.id_tipo_de_produto, descricao_tipo_de_produto, descricao_familia_do_produto FROM produto p INNER JOIN tipo_de_produto tp ON p.id_tipo_de_produto=tp.id_tipo_de_produto INNER JOIN familia_do_produto fp on tp.id_familia_do_produto=fp.id_familia_do_produto WHERE id_produto = ?";
     private static final String SELECT_BY_NOME = "SELECT id_materia_prima, nome_materia_prima, data_expira_materia_prima, quantidade_stock_materia_prima, descricao_tipo_de_produto FROM materia_prima mp INNER JOIN tipo_de_produto tp ON mp.id_tipo_de_produto = tp.id_tipo_de_produto WHERE nome_materia_prima LIKE ? ORDER BY nome_materia_prima";
     private static final String SELECT_ALL = "SELECT id_materia_prima, nome_materia_prima, data_expira_materia_prima, quantidade_stock_materia_prima, descricao_tipo_de_produto FROM materia_prima mp INNER JOIN tipo_de_produto tp ON mp.id_tipo_de_produto = tp.id_tipo_de_produto ORDER BY nome_materia_prima";
-   
+    private static final String SELECT_BY_TIPO_PRODUTO = "SELECT id_materia_prima, nome_materia_prima, data_expira_materia_prima, quantidade_stock_materia_prima, tp.id_tipo_de_produto, tp.descricao_tipo_de_produto FROM materia_prima mp INNER JOIN tipo_de_produto tp ON mp.id_tipo_de_produto=tp.id_tipo_de_produto  WHERE tp.id_tipo_de_produto = ? ORDER BY nome_materia_prima";
+    
+
     
      public boolean save(MateriaPrima materiaPrima) {
         PreparedStatement ps = null;
@@ -115,6 +117,31 @@ public class MateriaPrimaDAO {
             ConnectionDB.closeConnection(conn, ps);
         }
     }
+     
+      public List<MateriaPrima> findByTipoProduto(TipoProduto tipo) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+              List<MateriaPrima> materiaPrimas = new ArrayList();
+        try {
+            conn = ConnectionDB.getConnection();
+            ps = conn.prepareStatement(SELECT_BY_TIPO_PRODUTO);
+            ps.setInt(1, tipo.getIdTipoProduto());
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MateriaPrima materiaPrima = new MateriaPrima();
+                popularComDados(materiaPrima, rs);
+                materiaPrimas.add(materiaPrima);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro ao ler dados: " + ex.getLocalizedMessage());
+        } finally {
+            ConnectionDB.closeConnection(conn, ps, rs);
+        }
+        return materiaPrimas;
+    }
+     
      
      public List<MateriaPrima> findAll() {
         PreparedStatement ps = null;

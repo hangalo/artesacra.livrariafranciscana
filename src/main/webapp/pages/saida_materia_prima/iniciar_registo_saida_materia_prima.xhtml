@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_saida_materia_prima.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                    <h2>Tipo de Matéria Prima</h2>
+                    <hr/>
+                </center>
+
+                <h:form>
+                    
+                  <ui:repeat var="tp" value="#{tipoProdutoMBean.tipoProdutos}">                             
+                      <p:commandButton value="#{tp.descricaoTipoProduto}" action="#{materiaPrimaAuxBean.carregarMateriaPrimaPorTipo(tp)}" style="margin: 6px" ajax="false"/>      
+                  </ui:repeat>
+                    
+                </h:form>
+                 <hr/>
+                <h:form>
+
+                    <p:growl/>
+                 <h4 style="text-align: center; font-size: 1.4em;"> Produtos disponíveis</h4>
+                    <h2 style="color: #00AA66">N.º de Itens no carrinho: #{saidaMateriaPrimaDetalhesBean.numeroItens()}</h2>
+                   
+                    <p:dataTable id="tblMateriasPrimas" var="item" value="#{materiaPrimaAuxBean.materiasPrimasSeleccionadas}" >
+
+                        <p:column style="font-size: 1.4em; font-weight: bold">
+                            <f:facet name="header"> Quantidade</f:facet>
+                            <h:outputText value="#{saidaMateriaPrimaDetalhesBean.getQuantidateItens(item)}"/>
+                        </p:column>
+                        <p:column style="font-size: 1.4em; font-weight: bold">
+                            <f:facet name="header"> Matéria Prima</f:facet>
+                            <h:outputText value="#{item.nomeMateriaPrima}"/>
+                        </p:column>
+                       
+                        <p:column style="font-size: 1.4em; font-weight: bold">
+                            <f:facet name="header" >Operação</f:facet>
+                            <p:commandButton value="Adicionar ao pedido" action="#{saidaMateriaPrimaDetalhesBean.addicionarProdutoCarrinho(item)}" style="font-size: 1.1em; font-weight: bold" ajax="false"/>
+                        </p:column>
+                        <p:column rendered="#{saidaMateriaPrimaDetalhesBean.situacaoStock(item)=!1}">
+                            <f:facet name="header" rendered=""> Aviso</f:facet>
+                            <h:outputText value="#{saidaMateriaPrimaDetalhesBean.situacaoProdutoStock(item)}" style="font-size: 1.3em; color: red; font-weight: bold"/>
+                        </p:column>
+                    </p:dataTable>      
+
+
+                </h:form>
+
+                <h:panelGroup>
+                    <h:form>
+
+
+                        <p:column headerText="Operacão">
+                            <p:commandButton value="Ver Produtos solicitadas" action="factura_cesto_produtos_seleccionados?faces-redirect=true" style="font-size: 1.5em; font-weight: bold" ajax="false"/>
+                        </p:column>
+                    </h:form>
+                </h:panelGroup>
+
+
+
+
+
+
+                <h:form>
+                    <h:commandLink action="/index"  styleClass="button">
+                        <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
+                    </h:commandLink>
+                </h:form>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

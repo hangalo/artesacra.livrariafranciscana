@@ -6,23 +6,18 @@ package artesacra.mb;
 
 import artesacra.dao.MateriaPrimaDAO;
 import artesacra.modelo.MateriaPrima;
-import artesacra.modelo.Produto;
 import artesacra.modelo.TipoProduto;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
-/**
- *
- * @author informatica
- */
-@Named(value = "materiaPrimaBean")
-@RequestScoped
-public class MateriaPrimaBean {
+
+@Named(value = "materiaPrimaAuxBean")
+@SessionScoped
+public class MateriaPrimaAuxBean implements Serializable {
 
     MateriaPrima materiaPrima = new MateriaPrima();
     MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
@@ -64,17 +59,15 @@ public class MateriaPrimaBean {
         materiasPrimasSeleccionadas = materiaPrimaDAO.findByTipoProduto(tipoProduto);
     }
 
-    public String save() {
-        if (materiaPrimaDAO.save(materiaPrima)) {
-            materiaPrima = new MateriaPrima();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Guardart", "tSucesso ao guardar os dados"));
-            return "/pages/materia_prima/materia_prima_registar?faces-redirect=true";
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardart", "tErro ao guardar os dados"));
-            return null;
-        }
-    }
+    public String situacaoProdutoStock(int quanditade) {
 
-   
+        if (quanditade >= 10) {
+            return "";
+        } else {
+
+            return "Disponiveis apenas " + quanditade + " unidades. Reforçar o stock ";
+        }
+
+    }
 
 }

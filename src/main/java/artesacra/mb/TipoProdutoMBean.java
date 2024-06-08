@@ -10,6 +10,7 @@ import artesacra.modelo.TipoProduto;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
@@ -22,7 +23,7 @@ import javax.faces.view.ViewScoped;
  * @author informatica
  */
 @Named(value = "tipoProdutoMBean")
-@ViewScoped
+@SessionScoped
 public class TipoProdutoMBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
