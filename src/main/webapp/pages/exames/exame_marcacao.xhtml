@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+           
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                     <h2>Marcação de Exames</h2>
+                </center>
+
+                <h:form>
+
+
+                    <p:growl/>
+
+
+
+
+
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1">
+                                 <h:outputLabel for="@next" value="Escolha o tipo de Exame" style="font-size: 1.2em; font-weight: bold" />
+               
+                                <p:selectOneMenu id="tipoExame" value="#{exameMB.tipoExame}" converter="tipoExameConverter">
+                                    <f:selectItem itemLabel="--Seleccionar Tipo--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{tipoExameMBean.tiposExames}" var="tiposExame" itemValue="#{tiposExame}" itemLabel="#{tiposExame.descricaoTipoExame}"/>
+                                    <f:ajax listener="#{exameMB.carregaExamesPorTipo()}" render="tblExames"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+
+                         <h4 style="text-align: center; font-size: 1.3em;"> Exames disponiveis</h4>
+                    
+                        <p:dataTable id="tblExames" var="item" value="#{exameMB.examesSeleccionados}" >
+                            <p:column>
+                                <f:facet name="header">Código</f:facet>
+                                <h:outputText value="#{item.idExame}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header"> Descrição</f:facet>
+                                <h:outputText value="#{item.descricaoExame}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header"> Preço</f:facet>
+                                <h:outputText value="#{item.precoExame}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">Comprar</f:facet>
+                                <h:commandButton value="Adicionar ao pedido" action="#{agendaExameDetalhesBean.addicionarExameCesto(item)}"/>
+                            </p:column>
+                        </p:dataTable>      
+                    </p:panelGrid>
+
+                </h:form>
+
+                <h:panelGroup>
+                    <h:form>
+                        <p:commandButton icon="btnCarrinho" value="Ver exames solicitados" action="cesto_exames_seleccionados"/>
+                    </h:form>
+                </h:panelGroup>
+
+                <h:form id="formCarrinho">
+                    <p:growl id="growl" showDetail="true" />
+                    <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                    <p:dialog header="Cestro de pedidos" widgetVar="dialogClienteCreate" modal="true" width="90%">
+
+                        <h:panelGrid columns="2" style="width: 100%">
+                            <p:panel header="Análises solicitadas">
+                                <h:panelGrid columns="1">
+                                    <p:dataTable value="#{agendaExameDetalhesBean.carrinho}" var="i">
+
+                                        <p:column headerText="Análise">
+                                            <h:outputText value="#{i.exame.descricaoExame}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Preço">
+                                            <h:outputText value="#{i.exame.precoExame}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Qtde">
+                                            <h:outputText value="#{i.quantidade}"/>
+                                        </p:column>
+
+                                        <p:column>
+                                            <f:facet name="header">Sub Total</f:facet>
+                                            <h:outputText value="#{i.exame.precoExame * i.quantidade}"/>
+                                        </p:column> 
+
+                                        <p:column headerText="Operacao">
+                                            <h:link value="Delete" outcome="cesto_exames_seleccionados"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:panelGrid>
+                                <h3 style="color: #66DD99">
+                                    <br></br>
+                                    Total a pagar: #{agendaExameDetalhesBean.soma()}
+
+                                </h3>
+                            </p:panel>
+
+                           
+
+                        </h:panelGrid>
+
+
+
+                        <p:commandButton value="Registar Exame"   action="#{agendaExameDetalhesBean.registarExame()}" ajax="false" update="growl"/>
+
+
+                    </p:dialog>
+
+                </h:form>
+
+
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

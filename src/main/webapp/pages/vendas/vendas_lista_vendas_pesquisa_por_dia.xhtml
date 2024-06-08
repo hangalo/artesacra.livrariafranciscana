@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+            <ui:define name="content">
+                <center>
+                    <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+                </center>
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+                <p:panelGrid columns="2" styleClass="panelGridCenter companyHeaderGrid">
+                      <center>
+                    <h2>Vendas do dia</h2>
+                </center>
+                     <h:outputLabel rendered="#{facturaVendaProdutoDetalhesAuxBean.vendasTotaisDia.size()>0}" value="Total de linhas: #{facturaVendaProdutoDetalhesAuxBean.vendasTotaisDia.size()}" style="padding: 20px; margin: 40px; text-align: center; font-size: 1.4em; font-weight: bold"/>
+                </p:panelGrid>
+              
+                <h:form>
+                    <p:panelGrid styleClass="panelGridCenter companyHeaderGrid" columns="4">
+                        <p:outputLabel value="Data actual:" style="font-size: 1.4em; font-weight: bold"/>
+                        <p:calendar value="#{facturaVendaProdutoDetalhesAuxBean.dataActual}" pattern="dd/MM/yyyy" style="font-size: 1.4em; font-weight: bold"/>
+
+                        <p:commandButton ajax="false" style="margin-left:  10px" value="Persquisar..."  actionListener="#{facturaVendaProdutoDetalhesAuxBean.executarBuscaVendasPorDia}" />
+                        <p:commandButton rendered="#{facturaVendaProdutoDetalhesAuxBean.vendasTotaisDia.size()>0 }" value="Imprimir diário" actionListener="#{facturaVendaProdutoDetalhesAuxBean.imprimePDFByVendasPesquisaPorDia}" ajax="false"/>
+                    </p:panelGrid>
+                </h:form>
+               
+
+                <div class="card">
+
+                    <h:form>
+                        <p:dataTable var="vendas" value="#{facturaVendaProdutoDetalhesAuxBean.vendasTotaisDia}" rendered="#{facturaVendaProdutoDetalhesAuxBean.vendasTotaisDia.size()>0}" emptyMessage="Nenhuma venda registada nesse dia">
+                            <f:facet name="header">
+                                Vendas realizadas
+                            </f:facet>
+
+                            <p:column headerText="Produto">
+                                <h:outputText value="#{vendas.produto.nomeProduto}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Quantidade vendida">
+                                <h:outputText value="#{vendas.quantidadeVendida}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">Total</f:facet>
+                                <h:outputText value="#{vendas.totalVendas}">
+                                    <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                </h:outputText>
+                            </p:column> 
+
+                        </p:dataTable>
+                    </h:form>
+
+
+                </div>
+
+                <h:form>
+                    <h:commandLink action="/index"  styleClass="button">
+                        <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
+                    </h:commandLink>
+                </h:form>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

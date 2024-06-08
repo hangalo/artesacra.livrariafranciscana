@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../../WEB-INF/template/template_vendas.xhtml">
+
+
+
+
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <div class="card">
+                    <p:dataTable var="cliente" value="#{clienteBean.listaClientes}">
+                        <f:facet name="header">
+                            <center>
+                            Lista dos clientes
+                            </center>
+                        </f:facet>
+
+                        <p:column headerText="Nome" styleClass="centeredColumnContent">
+                            <h:outputText value="#{cliente.nomeCliente}" />
+                        </p:column>
+
+                        <p:column headerText="Sobrenome" styleClass="centeredColumnContent">
+                            <h:outputText value="#{cliente.sobrenomeCliente}" />
+                        </p:column>
+
+                        <p:column headerText="Sexo" styleClass="centeredColumnContent">
+                            <h:outputText value="#{cliente.sexo.abreviatura}" />
+                        </p:column>
+
+                        
+                         <p:column headerText="Municípo" styleClass="centeredColumnContent">
+                             <h:outputText value="#{cliente.municipio.nomeMunicipio}" />
+                        </p:column>
+
+
+
+
+                    </p:dataTable>
+                </div>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

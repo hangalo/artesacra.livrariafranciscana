@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <div class="card">
+                    <h:form>
+                        <p:dataTable var="stock" value="#{stockProdutoListaBean.listaStockProdutos}">
+                            <f:facet name="header">
+                                Lista do Stock de produtos
+                            </f:facet>
+
+                            <p:column headerText="Nome do produto">
+                                <h:outputText value="#{stock.produto.nomeProduto}" />
+                            </p:column>
+
+                        
+                            <p:column headerText="Quantidade registada">
+                                <h:outputText value="#{stock.quantidade}" />
+                            </p:column>               
+                            
+                           
+
+                            <p:column headerText="Preço de Compra">
+                                <h:outputText value="#{stock.precoCompra}" />
+                            </p:column>
+
+                             <p:column>
+                                <f:facet name="header"> Data de compra</f:facet>
+                                <h:outputText value="#{stock.dataCompra}">
+                                    <f:convertDateTime dateStyle="full"  pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                             <p:column>
+                                <f:facet name="header"> Ultima actualizaçao</f:facet>
+                                <h:outputText value="#{stock.dataActualizacao}">
+                                    <f:convertDateTime dateStyle="full"  pattern="dd/MM/yyyy - HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+
+
+                </div>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

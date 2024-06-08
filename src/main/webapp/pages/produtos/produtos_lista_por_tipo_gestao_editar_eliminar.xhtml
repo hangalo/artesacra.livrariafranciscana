@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                    <h2>Gestão de stock - Definir preço</h2>
+                    <hr/>
+                </center>
+
+                <h:form>
+
+
+                    <p:growl  id="growl" showDetail="true" showSummary="true"/>
+
+
+
+
+
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="@next" value="Escolha o tipo de produto" style="font-size: 1.2em; font-weight: bold" />
+                                <p:selectOneMenu id="tipo_produto" value="#{produtoAuxMBean.tipoProduto}" converter="tipoProdutoConverter">
+                                    <f:selectItem itemLabel="--Seleccionar o tipo de produto--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{tipoProdutoMBean.tipoProdutos}" var="tipoProduto" itemValue="#{tipoProduto}" itemLabel="#{tipoProduto.descricaoTipoProduto}"/>
+                                    <f:ajax listener="#{produtoAuxMBean.carregarProdutosPorTipoEditar()}" render=":frmProdutos:tblProdutos"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGroup>
+                    </p:panelGrid>
+
+                </h:form>
+
+
+                <h:form id="frmProdutos">
+
+                    <h4 style="text-align: center; font-size: 1.3em;"> Produtos disponiveis</h4>
+                    <p:dataTable id="tblProdutos" var="item" value="#{produtoAuxMBean.pesquisaProdutos}" >
+                        <f:facet name="header">
+                            Lista dos produtos
+                        </f:facet>
+
+                        <p:column headerText="Nome do produto">
+                            <h:outputText value="#{prod.nomeProduto}" />
+                        </p:column>
+
+
+
+                        <p:column headerText="Preço de venda">
+                            <h:outputText value="#{prod.precoVenda}" >
+                                <f:convertNumber currencySymbol = "AO   " type = "currency" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Em stock">
+                            <h:outputText value="#{prod.quantidadeStock}" />
+                        </p:column>
+                        <p:column headerText="Colocação">
+                            <h:outputText value="#{prod.colocacaoEstante}" />
+                        </p:column>
+                        <p:column headerText="Tipo de Produto">
+                            <h:outputText value="#{prod.tipoProduto.descricaoTipoProduto}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputLabel value="Operações"/>
+                            </f:facet>
+                            <p:commandLink value="Eliminar" action="#{produtoAuxMBean.eliminar()}">
+                                <f:setPropertyActionListener target="#{produtoAuxMBean.produto}" value="#{prod}"/>
+                            </p:commandLink>
+                            <h:outputText value="/"/>
+                            <p:commandLink value="Editar" action="#{produtoAuxMBean.prepararEditar()}">
+                                <f:setPropertyActionListener target="#{produtoAuxMBean.produto}" value="#{prod}"/>
+                            </p:commandLink>
+                        </p:column>
+
+
+
+
+                        <f:facet name="footer">  
+                            <h:outputText  rendered="#{produtoAuxMBean.pesquisaProdutos.size()>0}" value="Total: #{(produtoMBean.pesquisaProdutos.size())}"/>  
+                        </f:facet> 
+                    </p:dataTable>      
+
+
+                </h:form>
+
+
+
+
+
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

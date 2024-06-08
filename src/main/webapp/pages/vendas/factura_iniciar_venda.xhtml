@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                    <h2>Venda de produtos</h2>
+                    <hr/>
+                </center>
+
+                <h:form>
+
+
+                    <p:growl/>
+
+
+
+
+
+
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="@next" value="Escolha o tipo de produto" style="font-size: 1.4em; font-weight: bold" />
+                                <p:selectOneMenu id="tipo_produto" value="#{produtoMBean.tipoProduto}" converter="tipoProdutoConverter" style="font-size: 1.4em; font-weight: bold" >
+                                    <f:selectItem itemLabel="--Seleccionar o tipo de produto--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{tipoProdutoMBean.tipoProdutos}" var="tipoProduto" itemValue="#{tipoProduto}" itemLabel="#{tipoProduto.descricaoTipoProduto}" />
+                                    <f:ajax listener="#{produtoMBean.carregarProdutosSotckPositivoPorTipo()}" render="tblProdutos"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+
+
+                        <h4 style="text-align: center; font-size: 1.4em;"> Produtos disponíveis</h4>
+                        <h2 style="color: #00AA66">N.º de Itens no carrinho: #{facturaVendaProdutoDetalhesBean.numeroItens()}</h2>
+                        <p:dataTable id="tblProdutos" var="item" value="#{produtoMBean.produtosSeleccionados}" >
+
+
+                            <p:column style="font-size: 1.4em; font-weight: bold">
+                                <f:facet name="header"> Quantidade</f:facet>
+                                <h:outputText value="#{facturaVendaProdutoDetalhesBean.getQuantidateArtigos(item)}"/>
+                            </p:column>
+                            <p:column style="font-size: 1.4em; font-weight: bold">
+                                <f:facet name="header"> Nome do produto</f:facet>
+                                <h:outputText value="#{item.nomeProduto}"/>
+                            </p:column>
+
+
+                            <p:column style="font-size: 1.4em; font-weight: bold">
+                                <f:facet name="header"> Preço</f:facet>
+                                <h:outputText value="#{item.precoVenda}">
+                                    <f:convertNumber minFractionDigits="2" />
+                                </h:outputText>
+                            </p:column>
+
+
+                            <p:column style="font-size: 1.4em; font-weight: bold">
+                                <f:facet name="header" >Operação</f:facet>
+                                <p:commandButton value="Adicionar ao pedido" action="#{facturaVendaProdutoDetalhesBean.addicionarProdutoCarrinho(item)}" style="font-size: 1.1em; font-weight: bold" ajax="false"/>
+                            </p:column>
+                            <p:column rendered="#{item.quantidadeStock lt 10}">
+                                <f:facet name="header" rendered=""> Aviso</f:facet>
+                                <h:outputText value="#{produtoMBean.situacaoProdutoStock(item.quantidadeStock)}" style="font-size: 1.3em; color: red; font-weight: bold"/>
+                            </p:column>
+                        </p:dataTable>      
+                    </p:panelGrid>
+
+                </h:form>
+
+                <h:panelGroup>
+                    <h:form>
+
+
+                        <p:column headerText="Operacão">
+                            <p:commandButton value="Ver Produtos solicitadas" action="factura_cesto_produtos_seleccionados?faces-redirect=true" style="font-size: 1.5em; font-weight: bold" ajax="false"/>
+                        </p:column>
+                    </h:form>
+                </h:panelGroup>
+
+
+
+
+
+
+                <h:form>
+                    <h:commandLink action="/index"  styleClass="button">
+                        <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
+                    </h:commandLink>
+                </h:form>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

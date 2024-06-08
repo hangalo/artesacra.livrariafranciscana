@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/template/template_vendas.xhtml">
+
+          
+
+            <ui:define name="content">
+                
+                  <center>                                     
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+                  <h:panelGrid columns="3" styleClass="panelGridCenter" >
+                    <h:form>
+
+                        <p>Bem vindo(a) #{loginBean.profissional.nomeProfissional} #{loginBean.profissional.sobrenomeProfissional} </p>
+                        <h:commandLink action="#{loginBean.logout}" value="Terminar a minha sessão"></h:commandLink>
+                    </h:form>
+                </h:panelGrid>
+                <h:form >
+                    <h:panelGrid columns="3" styleClass="panelGridCenter" >
+
+                        <h:commandLink action="/index"  styleClass="button">
+                            <h:graphicImage name="home.png" library="images" height="100" width="95"/>  
+                        </h:commandLink>
+
+                        <h:panelGroup>
+                            <h:graphicImage name="logo_fraternitas.jpeg" library="images" height="200" width="200"/> 
+                        </h:panelGroup>
+
+                        <h:commandLink action="/pages/menu_vendas"  styleClass="button">
+                            <h:graphicImage name="vendas.png" library="images" height="100" width="95"/>
+                        </h:commandLink>
+
+                    </h:panelGrid>
+
+
+                </h:form>
+
+                <center>
+
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+                
+                
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

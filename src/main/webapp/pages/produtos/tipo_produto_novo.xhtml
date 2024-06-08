@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+                <f:view>
+
+                    <b:panel title="Cadastrar Novo tipo de produto" collapsible="false" look="primary">
+                        <h:form>
+                            <p:growl showDetail="true" showSummary="true"/>
+                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel  value="Tipo de produto"  />  
+                                        <p:inputText value="#{tipoProdutoMBean.tipoProduto.descricaoTipoProduto}" size="40"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Família do Produto" />
+                                        <p:selectOneMenu style="width:200px" id="familia_produto" filter="true" filterMatchMode="startsWith" label="Família do produto" value="#{tipoProdutoMBean.tipoProduto.familiaProduto}" required="true" converter="familiaProdutoConverter">
+                                            <f:selectItem itemLabel="-Seleccione a familia do produto-" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{familiaProdutoMBean.familiaProdutos}" var="familiaProduto" itemValue="#{familiaProduto}" itemLabel="#{familiaProduto.descricaoFamiliaProduto}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </h:panelGroup>  
+
+
+                            </p:panelGrid>   
+                            <p:commandButton action="#{tipoProdutoMBean.save}" value="Guardar" ajax="false"/>
+                        </h:form>
+                    </b:panel>
+
+                    <b:panel title="Tipos de produtos" collapsible="false" look="primary">
+
+                        <h:form>
+                            <p:dataTable value="#{tipoProdutoMBean.tipoProdutos}" var="item">
+                                <p:column headerText="Tipo de produto">
+                                    <h:outputText value="#{item.descricaoTipoProduto}" />
+                                </p:column>
+
+                                <p:column headerText="Familia do produto">
+                                    <h:outputText value="#{item.familiaProduto.descricaoFamiliaProduto}" />
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+
+                    </b:panel>
+
+
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

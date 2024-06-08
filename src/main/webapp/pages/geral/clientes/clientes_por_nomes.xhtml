@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+       <ui:composition template="./../../../WEB-INF/template/template_vendas.xhtml">
+
+
+               
+
+            <ui:define name="content">
+                
+                    <center>
+                    <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+                </center>
+                 <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <h:form id="formProcuraMedicamento"  >
+                    <h:messages/>
+
+
+                    <h:panelGrid columns="2" cellspacing="5%" width="50px" styleClass="panelGridCenter" >
+                        <p:inputText id="cognome" value="#{medicamentoMB.designacaoMedicamento}" required="true" requiredMessage="Campo obrigatório" immediate="true" size="60"/>
+
+
+                        <p:commandButton value="Procurar..." actionListener="#{medicamentoMB.executarProcuraMedicamento}" styleClass="but but-primary" update=":lista_dados:tbMedicamentos"/>
+
+                    </h:panelGrid>
+
+
+                </h:form>
+
+
+
+                <h:form id="lista_dados" enctype="multipart/form-data">
+
+                    <p:dataTable id="tbMedicamentos" value="#{medicamentoMB.pesquisaMedicamentos}"  var="item" scrollable="true" scrollHeight="600"  showGridlines="true" rendered="#{medicamentoMB.listaMedicamentos.size()>0}">
+
+                        <p:column width="40px">
+                            <f:facet name="header">
+                                <h:outputText value="Nome Tecnico"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeTecnico}"/>
+                        </p:column>
+
+                        <p:column width="40px">
+                            <f:facet name="header">
+                                <h:outputText value="Nome Comum"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeVulgar}"/>
+                        </p:column>
+
+                        <p:column width="40px">
+                            <f:facet name="header">
+                                <h:outputText value="Código"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoMedicamento}"/>
+                        </p:column>
+
+                        <p:column width="40px">
+                            <f:facet name="header">
+                                <h:outputText value="Preço"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precoVenda}"/>
+                        </p:column>
+
+
+                        <p:column width="40px">
+                            <f:facet name="header">
+                                <h:outputText value="Categoria"/>
+                            </f:facet>
+                            <h:outputText value="#{item.categoriaMedicamento.categoriaMedicamento}"/>
+                        </p:column>
+
+                        <p:column headerText="Ver detalhes" style="width: 40px">
+
+
+
+                            <p:commandButton icon="pi pi-search" update=":mostrar" oncomplete="PF('dialogo').show();" styleClass="mr-2">
+                                <f:setPropertyActionListener target="#{medicamentoMB.medicamento}" value="#{item}"/>
+                            </p:commandButton>
+
+
+                        </p:column>
+                        <f:facet name="footer">  
+                            <h:outputText  rendered="#{medicamentoMB.pesquisaMedicamentos.size()>0}" value="Totale: #{(medicamentoMB.pesquisaMedicamentos.size())}"/>  
+                        </f:facet> 
+                    </p:dataTable>
+
+                </h:form>
+
+
+
+
+                <p:dialog  header="Dados do medicamento: #{medicamentoMB.medicamento.nomeTecnico}  #{medicamentoMB.medicamento.nomeVulgar} - Centro Médico" widgetVar="dialogo" id="mostrar" resizable="true" maximizable="true" modal="true" width="800" showEffect="explode" hideEffect="fold" >  
+                    <h:form id="dati" enctype="multipart/form-data">
+                        <p:panel>
+
+                            <h:panelGrid columns="3">
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Nome tecnico:" style="font-weight: bold"/>
+                                    <h:outputText id="id_frate" value="#{medicamentoMB.medicamento.nomeTecnico}"/>
+                                </h:panelGrid>
+
+
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Nome vulgar:" style="font-weight: bold"/>
+                                    <h:outputText id="nome" value="#{medicamentoMB.medicamento.nomeVulgar}"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Colocação" style="font-weight: bold"/>
+                                    <h:outputText value="#{medicamentoMB.medicamento.colocacaoEstante}"/>
+                                </h:panelGrid>
+
+
+
+                            </h:panelGrid>
+
+
+                            <h:panelGrid columns="2">
+
+                                <h:outputLabel value="Data de expiração:" style="font-weight: bold"/>
+                                <h:outputText id="nascita" value="#{medicamentoMB.medicamento.validadeMedicamento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                                <h:outputLabel value="Preço de venda:" style="font-weight: bold"/>
+                                <h:outputText value="#{medicamentoMB.medicamento.precoVenda}"/>
+
+                                <h:outputLabel value="Preço de compra:" style="font-weight: bold"/>
+                                <h:outputText value="#{medicamentoMB.medicamento.precoCompra}"/>  
+
+
+                                <h:outputLabel value="Em sotck:" style="font-weight: bold"/>
+                                <h:outputText value="#{medicamentoMB.medicamento.quantidadeStock}"/>  
+
+                                <h:outputLabel value="Categoria" style="font-weight: bold"/>
+                                <h:outputText value="#{medicamentoMB.medicamento.categoriaMedicamento.categoriaMedicamento}"/>  
+
+                            </h:panelGrid>
+
+
+
+
+                        </p:panel>
+                    </h:form>
+
+
+
+                   
+
+                </p:dialog> 
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

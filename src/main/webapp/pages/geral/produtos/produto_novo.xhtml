@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../../../WEB-INF/template/template_vendas.xhtml">
+
+
+
+            <ui:define name="content">
+                
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <b:panel title="Cadastrar Novo Produto" collapsible="false" look="primary">
+
+
+
+                    <h:form>
+                      
+                        <p:growl showDetail="true" showSummary="true"/>
+
+                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Nome do produto"/>
+                                    <p:inputText value="#{produtoMBean.produto.nomeProduto}" size="35" required="true"/>                                        
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+
+
+                           
+                           <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Colocação na estante"/>
+                                    <p:inputText value="#{produtoMBean.produto.colocacaoEstante}" size="35" required="true"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Tipo de produto"/>
+                                    <p:selectOneMenu style="width:200px" id="tipo_produto" filter="true" filterMatchMode="startsWith" label="Tipo de produto" value="#{produtoMBean.produto.tipoProduto}" required="true" converter="tipoProdutoConverter">
+                                        <f:selectItem itemLabel="--Seleccionar o tipo--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{produtoMBean.selectItemTipoProdutos}" />
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Data de expiração"/>
+                                    <p:calendar value="#{produtoMBean.produto.validadeProduto}" pattern="dd/MM/yyyy"  showOn="button"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Unidade de Medida"/>
+                                    <p:selectOneMenu style="width:200px" id="unidade_medida" filter="true" filterMatchMode="startsWith" label="Tipo de produto" value="#{produtoMBean.produto.unidadeMedida}" required="true" converter="unidadeMedidaConverter">
+                                        <f:selectItem itemLabel="--Seleccionar a unidade de medida--" value="#{null}" noSelectionOption="true"/>
+                                        <f:selectItems value="#{unidadeMedidaBean.unidadeMedidas}"  var="unidadeMedida" itemValue="#{unidadeMedidas}" itemLabel="#{unidadeMedida.descricaoUnidadeMedida}"/>
+                                    </p:selectOneMenu>
+
+                                </h:panelGrid>
+                            </h:panelGroup>
+                            <h:panelGroup/>
+
+                        </p:panelGrid>
+
+                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                           
+
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Preço de venda"/>
+                                    <p:inputText value="#{produtoMBean.produto.precoVenda}"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+
+                                    <p:outputLabel value="Quantidade em Stock"/>
+                                    <p:inputText value="#{produtoMBean.produto.quantidadeStock}" size="20"/>
+
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup/>
+                        </p:panelGrid>
+
+
+
+
+
+                     
+
+                        <p:panelGrid  columns="2" styleClass="ui-panelgrid-blank ui-fluid" >
+                            <p:commandButton action="#{produtoMBean.save}" value="Guardar" ajax="false"/>
+                            <p:commandButton value="Cancelar"/>
+                        </p:panelGrid>
+                    </h:form>
+
+                </b:panel>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

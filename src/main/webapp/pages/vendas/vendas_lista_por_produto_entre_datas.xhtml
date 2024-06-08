@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+            <ui:define name="content">
+                <center>
+                    <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+                </center>
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <div class="card">
+                    <h:panelGrid columns="8" styleClass="panelGridCenter">
+                        <h:outputLabel value="Lista das vendas por Produto entre datas:" style="padding: 20px; margin: 40px; text-align: center; font-size: 2em;"/>
+
+                        <h:outputLabel rendered="#{facturaVendaProdutoDetalhesAuxBean.vendasRealizadasPorProdutoEntreDatas.size()>0}" value="Total de linhas: #{facturaVendaProdutoDetalhesAuxBean.vendasRealizadasPorProdutoEntreDatas.size()}" style="padding: 20px; margin: 40px; text-align: center; font-size: 2em;"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" styleClass="panelGridCenter">
+                        <h:panelGroup style="margin-right: 800px">
+                            <h:outputLabel />
+                        </h:panelGroup>
+
+                        <h:panelGroup style="margin-bottom: 20px;">
+
+                            <p:panelGrid columns="2">
+                                <h:form>
+                                    <p:panelGrid columns="8" >
+                                        <h:panelGroup>
+                                            <h:panelGrid columns="1">
+                                                <p:outputLabel value="Forma de pagamento"/>
+                                                <p:selectOneMenu style="width:200px" id="produto" filter="true" filterMatchMode="startsWith" label="Tipo de produto" value="#{facturaVendaProdutoDetalhesAuxBean.produto}" required="true" converter="produtoConverter">
+                                                    <f:selectItem itemLabel="--Seleccionar a forma--" value="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{produtoMBean.listaProdutos}" var="listaProduto"  itemValue="#{listaProduto}" itemLabel="#{listaProduto.nomeProduto}"/>
+
+                                                </p:selectOneMenu>
+
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <p:outputLabel value="Procura entre:"/>
+                                        <p:calendar value="#{facturaVendaProdutoDetalhesAuxBean.inicio}" pattern="dd/MM/yyyy" required="true" requiredMessage="Campo obrigatoriio."/>
+                                        <p:outputLabel value="e"/>
+                                        <p:calendar value="#{facturaVendaProdutoDetalhesAuxBean.fim}" pattern="dd/MM/yyyy" required="true" requiredMessage="Campo obrigatoriio."/>
+
+
+                                        <p:commandButton ajax="false" style="margin-left:  10px" value="Persquisar..."  actionListener="#{facturaVendaProdutoDetalhesAuxBean.executarBuscaVendasPorProdutoEntreDatas}" />
+
+
+                                    </p:panelGrid>
+                                </h:form>
+                                <h:form>
+                                    <p:commandButton rendered="#{facturaVendaProdutoDetalhesAuxBean.vendasRealizadasPorProdutoEntreDatas.size()>0 }" value="Imprimir diário" actionListener="#{facturaVendaProdutoDetalhesAuxBean.imprimePDFByVendasPorFormaPagamentoEntreDatas}" ajax="false"/>
+                                </h:form>
+                            </p:panelGrid>
+
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:form>
+                        
+                        <p:dataTable var="vendas" value="#{facturaVendaProdutoDetalhesAuxBean.vendasRealizadasPorProdutoEntreDatas}" emptyMessage="Nenhuma venda registada com essa forma de pagamento">
+                            <f:facet name="header">
+                                Vendas realizadas Por Produto
+                            </f:facet>
+
+                            
+                            
+                            <p:column  headerText="N.º Factura" groupRow="true"  width="4%">
+
+                                <h:outputText style="vertical-align: middle; margin-left: .5rem; font-weight: bold"
+                                              value="#{vendas.facturaVendaProduto.idFactura}"/>
+                            </p:column>
+                            <p:column headerText="Data" width="11%">
+                                 <h:outputText value="#{vendas.facturaVendaProduto.dataHoraRegisto}">
+                                    <f:convertDateTime dateStyle="full"  pattern="dd/MM/yyyy - HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                           
+                             <p:column headerText=" Forma de pagamento">
+                                 <h:outputText value="#{vendas.facturaVendaProduto.formaPagamento.descricaoFormaPagamento}" />
+                            </p:column>
+
+                           
+                            <p:column headerText="Cliente">
+                                <h:outputText value="#{vendas.facturaVendaProduto.cliente.nomeCliente} #{vendas.facturaVendaProduto.cliente.sobrenomeCliente}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Produto">
+                                <h:outputText value="#{vendas.produto.nomeProduto}"/>
+                            </p:column>
+
+                            <p:column headerText="Quantidade">
+                                <h:outputText value="#{vendas.quantidade}"/>
+                            </p:column>
+
+                            <p:column headerText="Preço">
+                                <h:outputText value="#{vendas.precoVenda}"/>
+                            </p:column>
+                           
+                            <p:column>
+                                <f:facet name="header">Sub Total</f:facet>
+                                <h:outputText value="#{vendas.precoVenda * vendas.quantidade}"/>
+                            </p:column> 
+
+                        </p:dataTable>
+
+
+                    </h:form>
+
+
+                </div>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

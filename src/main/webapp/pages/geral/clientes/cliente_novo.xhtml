@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+         <ui:composition template="./../../../WEB-INF/template/template_vendas.xhtml">
+
+
+
+
+            <ui:define name="content">
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+
+                <b:panel title="Cadastrar Novo Cliente" collapsible="false" look="primary">
+                    <h:form>
+                        
+                        <p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Nome:"/>
+                                    <p:inputText value="#{clienteBean.cliente.nomeCliente}" size="40" required="true"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <h:outputLabel value="Sobrenome:"/>
+                                    <p:inputText value="#{clienteBean.cliente.sobrenomeCliente}" size="40" required="true"/>
+                                </h:panelGrid>
+                            </h:panelGroup>                         
+
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="Sexo:"/>
+                                    <p:selectOneRadio id="sexo" value="#{clienteBean.cliente.sexo}" required="true">
+                                        <f:selectItems value="#{clienteBean.opSexos}" />
+                                    </p:selectOneRadio >
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGroup/>
+                        </p:panelGrid>
+
+               <b:panel title="Contactos" collapsible="false" look="primary">
+                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                               
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel value="Telemovel:"/>
+                                        <p:inputText value="#{clienteBean.cliente.telefoneCliente}"/>
+
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:panelGroup/>
+                                <h:panelGroup/>
+
+                            </p:panelGrid>
+
+
+                        </b:panel>
+
+                        <b:panel title="Endereço" collapsible="false" look="primary">
+
+                            <p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel value="Casa N.º:"/>
+                                        <p:inputText value="#{clienteBean.cliente.casaCliente}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel value="Rua:"/>
+                                        <p:inputText value="#{clienteBean.cliente.ruaCliente}" size="40"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel value="Bairro:"/>
+                                        <p:inputText value="#{clienteBean.cliente.bairroCliente}" size="40"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                               
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+
+
+                                    </h:panelGrid>
+                                </h:panelGroup>
+
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                               
+
+                                <h:panelGroup>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Municipio:" />
+                                        <p:selectOneMenu style="width:200px" id="municipios" filter="true" filterMatchMode="startsWith" label="Município:" value="#{clienteBean.cliente.municipio}" required="true" converter="municipioConverter">
+                                            <f:selectItem itemLabel="-Seleccione o município-" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{municipioMB.municipios}" var="municipio" itemValue="#{municipio}" itemLabel="#{municipio.nomeMunicipio}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </h:panelGroup>  
+
+                            </p:panelGrid>
+
+                        </b:panel>
+
+                        <h:panelGrid columns="2">
+                            <p:commandButton actionListener="#{clienteBean.guardar}" value="Guardar" ajax="false"/>
+                        </h:panelGrid>
+                    </h:form>
+
+                </b:panel>
+                
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

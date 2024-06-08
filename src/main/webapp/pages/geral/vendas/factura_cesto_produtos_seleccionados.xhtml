@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Podutos seleccionados</title>
+        <style type="text/css">
+            .companyHeaderGrid td {
+                border: none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <center>
+            <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+        </center>
+
+        <h3 style="text-align: center"> Produtos adicionados ao cesto</h3>
+        <hr/>
+        <h:form style="margin-top: 20px">
+            <p:growl id="growl" showDetail="true"/>
+            <p:panelGrid columns="2">
+                <h:panelGroup>
+                    
+                    <h2 style="color: #00AA66">N.º de Itens no carrinho: #{facturaVendaProdutoDetalhesBean.numeroItens()}</h2>
+                    <p:dataTable var="it" value="#{facturaVendaProdutoDetalhesBean.carrinho}" emptyMessage="Nenhum Produtos seleccionado" >
+
+
+                        <p:column>
+                            <f:facet name="header">Nome do produto</f:facet>
+                            <h:outputText value="#{it.produto.nomeProduto}"/>
+                        </p:column> 
+
+                        <p:column>
+                            <f:facet name="header">Preço</f:facet>
+                            <h:outputText value="#{it.produto.precoVenda}">
+                                <f:convertNumber minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column>
+                            <f:facet name="header">Quantidade</f:facet>
+                            <h:outputText value="#{it.quantidade}"/>
+                        </p:column> 
+
+
+
+                        <p:column>
+                            <f:facet name="header">Sub Total</f:facet>
+                            <h:outputText value="#{it.produto.precoVenda * it.quantidade}">
+                                <f:convertNumber minFractionDigits="2" />
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column>
+                            <f:facet name="header">Operação</f:facet>
+                            <h:commandLink value="Eliminar" action="#{facturaVendaProdutoDetalhesBean.delete(it)}" onclick="return confirm('Deseja eliminar o Item do carrinho ?')"></h:commandLink>
+                        </p:column> 
+                    </p:dataTable>
+                </h:panelGroup>
+
+            </p:panelGrid>
+
+
+
+        </h:form>
+        <h:panelGrid columns="2" style="margin: 20px;">
+            
+              <h:outputLabel value="Total a pagar: " style="font-size: 1.4em; font-weight: bold"/>
+             <h:outputLabel value="#{facturaVendaProdutoDetalhesBean.soma(it.produto.precoVenda * it.quantidade)}" style="font-size: 1.4em; font-weight: bold">
+                <f:convertNumber minFractionDigits="2" />
+            </h:outputLabel>
+        </h:panelGrid>
+
+
+        <h:form>
+            <p:panelGrid columns="1" styleClass="companyHeaderGrid">
+                <p:commandButton value="Seleccionar o Cliente e Concluir"   action="factiura_cesto_produtos_seleccionados_adicionar_cliente_concluir?faces-redirect=true" ajax="false" update="growl" style="font-size: 1.5em; font-weight: bold"/>
+
+
+            </p:panelGrid>
+            <p:panelGrid columns="1" styleClass="companyHeaderGrid">
+                <h:link  outcome="factura_iniciar_venda?faces-redirect=true" style="font-size: 1.4em; text-decoration: none; color: #e0a800;">
+                    <h:panelGrid columns="1">
+                        <h:outputText value="Regressar/Adicionar outro produto"/>
+                    </h:panelGrid>
+                </h:link>
+            </p:panelGrid>
+
+        </h:form>
+
+          <h:form>
+            <p:panelGrid columns="1" styleClass="companyHeaderGrid" >
+                <p:commandButton value="Cancelar Venda" action="#{facturaVendaProdutoDetalhesBean.cancelarVendaGeral()}" style="font-size: 1.4em; font-weight: bold;" ajax="false"/>
+            </p:panelGrid>
+
+        </h:form>
+
+        <h:form>
+            <h:commandLink action="/index"  styleClass="button">
+                <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
+            </h:commandLink>
+        </h:form>
+    </h:body>
+</html>
+

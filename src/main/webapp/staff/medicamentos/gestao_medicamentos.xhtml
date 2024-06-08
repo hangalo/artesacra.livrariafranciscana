@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{app['gestao-medicamentos']}</title>
+    </h:head>
+    <h:body>
+
+        <p:panel header="#{app['novo']}#{msg['medicamento']}">
+
+        <h:form>
+            <h:messages/>
+            <h:panelGrid columns="2">
+                <h:panelGroup>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['nome_vulgar']}"/>
+                        <h:inputText value="#{funcioarioMB.funcionario.nomeFuncionario}" size="40"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+
+                <h:panelGroup>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['nome_tecnico']}"/>
+                        <h:inputText value="#{funcioarioMB.funcionario.sobrenomFuncionario}" size="40"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <h:panelGrid columns="2">
+              
+                <h:panelGroup>
+                    <h:panelGroup>
+                        <p:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['data-nascimento']}"/>
+                            <p:calendar value="#{funcioarioMB.funcionario.dataNascimento}" pattern="dd/MM/yyyy"/>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGrid>
+
+
+            <h:panelGrid columns="2">
+
+                <h:panelGroup>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['telefone']}"/>
+                        <h:inputText value="#{funcioarioMB.funcionario.telefoneFuncionario}" size="35"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <p:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['email']}"/>
+                        <h:inputText value="#{funcioarioMB.funcionario.emailFuncionario}" size="35"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
+
+          
+
+
+                    <h:panelGroup>
+                        <p:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['municipio']}"/>
+                            <p:selectOneMenu id="municipio" value="#{funcioarioMB.funcionario.municipio}" converter="municipioConverver">
+                                <f:selectItem itemLabel="#{app['seleccionar']}" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{municipioMB.municipios}" var="m" itemValue="#{m}"  itemLabel="#{m.nomeMunicipio}"/>
+                            </p:selectOneMenu> 
+                        </p:panelGrid>
+                    </h:panelGroup>
+                
+
+
+           
+            <h:panelGrid columns="2">
+                <h:commandButton value="#{app['guardar']}" action="#{funcioarioMB.insert}"/>
+                <h:commandButton value="#{app['cancelar']}"/>
+            </h:panelGrid>
+        </h:form>
+</p:panel>
+
+
+
+
+        <p:dataTable value="#{funcioarioMB.listaFuncionarios}" var="f">
+            <p:column headerText="#{msg['nome']}">
+                <h:outputText value="#{f.nomeFuncionario}"/>
+            </p:column>
+            <p:column headerText="#{msg['sobrenome']}">
+                <h:outputText value="#{f.sobrenomFuncionario}"/>
+            </p:column>
+            <p:column headerText="#{msg['data-nascimento']}">
+                <h:outputText value="#{f.dataNascimento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:outputText>
+            </p:column>
+
+
+
+        </p:dataTable>
+
+    </h:body>
+</html>
+

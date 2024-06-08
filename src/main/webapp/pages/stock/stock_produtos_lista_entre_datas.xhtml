@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+            <ui:define name="content">
+                <center>
+                    <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+                </center>
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <div class="card">
+                    <h:panelGrid columns="8" styleClass="panelGridCenter">
+                        <h:outputLabel value="Lista do Stock entre datas:" style="padding: 20px; margin: 40px; text-align: center; font-size: 2em;"/>
+                        <h:panelGroup/><h:panelGroup/> <h:panelGroup/> <h:panelGroup/> <h:panelGroup/><h:panelGroup/>
+                        <h:outputLabel rendered="#{stockProdutoBean.listaEntredadasStockProdutos.size()>0}" value="Total de linhas: #{stockProdutoBean.listaEntredadasStockProdutos.size()}" style="padding: 20px; margin: 40px; text-align: center; font-size: 2em;"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="1" styleClass="panelGridCenter">
+                        <h:panelGroup style="margin-right: 800px">
+                            <h:outputLabel />
+                        </h:panelGroup>
+
+                        <h:panelGroup style="margin-bottom: 20px;">
+
+                            <p:panelGrid columns="2" styleClass="companyHeaderGrid">
+                                <h:form>
+                                    <p:panelGrid columns="8" styleClass="companyHeaderGrid">
+
+                                        <p:outputLabel value="Procura entre:"/>
+                                        <p:calendar value="#{stockProdutoBean.inicio}" pattern="dd/MM/yyyy" required="true" requiredMessage="Campo obrigatoriio."/>
+                                        <p:outputLabel value="e"/>
+                                        <p:calendar value="#{stockProdutoBean.fim}" pattern="dd/MM/yyyy" required="true" requiredMessage="Campo obrigatoriio."/>
+
+
+                                        <p:commandButton ajax="false" style="margin-left:  10px" value="Persquisar..."  actionListener="#{stockProdutoBean.executarBuscaStockEntreDatas}" />
+
+
+                                    </p:panelGrid>
+                                </h:form>
+                                
+                            </p:panelGrid>
+
+                        </h:panelGroup>
+                    </h:panelGrid>
+
+                    <h:form>
+                        <p:dataTable var="stock" value="#{stockProdutoBean.listaEntredadasStockProdutos}" rendered="#{stockProdutoBean.listaEntredadasStockProdutos.size()>0 }">
+                             <f:facet name="header">
+                                Lista do Stock de produtos
+                            </f:facet>
+
+                            <p:column headerText="Nome do produto">
+                                <h:outputText value="#{stock.produto.nomeProduto}" />
+                            </p:column>
+
+                        
+                            <p:column headerText="Quantidade registada">
+                                <h:outputText value="#{stock.quantidade}" />
+                            </p:column>
+                            
+                           
+                           
+                            
+                             <p:column headerText="Q.de existente">
+                                <h:outputText value="#{stock.produto.quantidadeStock}" />
+                            </p:column>
+
+                            <p:column headerText="Preço de Compra">
+                                <h:outputText value="#{stock.precoCompra}" >
+                                <f:convertNumber groupingUsed="true" minFractionDigits="2" />
+                                </h:outputText>
+                               
+                            </p:column>
+
+                             <p:column>
+                                <f:facet name="header"> Data de compra</f:facet>
+                                <h:outputText value="#{stock.dataCompra}">
+                                    <f:convertDateTime dateStyle="full"  pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                             <p:column>
+                                <f:facet name="header"> Ultima actualizaçao</f:facet>
+                                <h:outputText value="#{stock.dataActualizacao}">
+                                    <f:convertDateTime dateStyle="full"  pattern="dd/MM/yyyy - HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+
+                        </p:dataTable>
+
+                    </h:form>
+
+
+                </div>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

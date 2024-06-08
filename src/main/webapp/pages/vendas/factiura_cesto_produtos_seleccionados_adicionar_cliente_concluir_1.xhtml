@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Produtos adicionados ao cesto</title>
+         <style type="text/css">
+            .companyHeaderGrid.ui-panelgrid>*>tr,
+            .companyHeaderGrid.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+
+            .companyHeaderGrid td {
+                border: none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <center>
+            <h:graphicImage library="images" name="logo_fraternitas.jpeg" height="100" width="100" />
+        </center>
+
+        <h3 style="text-align: center"> Produtos adicionados ao cesto</h3>
+        <hr/>
+        <h:form style="margin-top: 20px">
+            <p:growl id="growl" showDetail="true"/>
+            <p:panelGrid columns="2">
+                <h:panelGroup>
+                    <h:panelGrid columns="2" style="margin-left: 12px;">
+                        <p:panel header="Factura">
+                            <h:panelGrid columns="1">
+                                <h:outputLabel value="Data:"/>
+                                <h:inputText value="#{facturaVendaProdutoBean.factura.dataFactura}" size="6" style="text-align: center">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:inputText>        
+
+                            </h:panelGrid>
+                            <h:panelGrid columns="1" style="width:200px">
+                                <p:outputLabel value="Cliente:" />
+                                <p:selectOneMenu style="width:300px" id="cliente" filter="true" filterMatchMode="startsWith" label="Paciente" value="#{facturaVendaProdutoBean.factura.cliente}" required="true" requiredMessage="Campo obrigatório" converter="clienteConverter">
+                                    <f:selectItem itemLabel="--Seleccione o cliente--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{clienteBean.listaClientes}" var="listaCliente" itemValue="#{listaCliente}" itemLabel="#{listaCliente.nomeCliente} #{listaCliente.sobrenomeCliente}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Forma de pagamento:"/>
+                                <p:selectOneRadio id="forma_pagamento" value="#{facturaVendaProdutoBean.factura.formaPagamento}" converter="formaPagamentoConverter" required="true">
+                                    <f:selectItems value="#{formaPagamentoBean.formaPagamentos}" var="formaPagamento" itemValue="#{formaPagamento}" itemLabel="#{formaPagamento.descricaoFormaPagamento}" />
+                                </p:selectOneRadio >
+                            </h:panelGrid>
+
+
+
+                        </p:panel>
+
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <p:dataTable var="it" value="#{facturaVendaProdutoDetalhesBean.carrinho}" emptyMessage="Nenhum Produto seleccionado" >
+
+
+                        <p:column>
+                            <f:facet name="header">Nome do produto</f:facet>
+                            <h:outputText value="#{it.produto.nomeProduto}"/>
+                        </p:column> 
+
+                        <p:column>
+                            <f:facet name="header">Preço</f:facet>
+                            <h:outputText value="#{it.produto.precoVenda}"/>
+                        </p:column> 
+
+                        <p:column>
+                            <f:facet name="header">Quantidade</f:facet>
+                            <h:outputText value="#{it.quantidade}"/>
+                        </p:column> 
+
+
+                        <p:column>
+                            <f:facet name="header">Sub Total</f:facet>
+                            <h:outputText value="#{it.produto.precoVenda * it.quantidade}"/>
+                        </p:column> 
+
+
+                    </p:dataTable>
+                </h:panelGroup>
+
+            </p:panelGrid>
+            <p:panelGrid columns="1" styleClass="companyHeaderGrid">
+                <h:panelGroup>
+                    <h3>Total a pagar: #{facturaVendaProdutoDetalhesBean.soma()}</h3>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <p:commandButton value="Registar Venda/Concluir"   action="#{facturaVendaProdutoDetalhesBean.registarCompra()}" ajax="false" update="growl"/>
+                </h:panelGroup>
+            </p:panelGrid>
+
+
+
+
+        </h:form>
+
+        <h:form>
+
+            <p:panelGrid columns="1" styleClass="companyHeaderGrid"> 
+                <h:link  outcome="factura_iniciar_venda" style="font-size: 1.4em; text-decoration: none; color: #e0a800;">
+                    <h:panelGrid columns="1">
+                        <h:outputText value="Nova Venda/Regressar"/>
+                    </h:panelGrid>
+                </h:link>
+            </p:panelGrid>
+
+
+        </h:form>
+
+    </h:body>
+</html>
+

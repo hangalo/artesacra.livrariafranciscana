@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+     <ui:composition template="./../../../WEB-INF/template/template_vendas.xhtml">
+
+
+
+
+
+            <ui:define name="content">
+                
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                </center>
+
+                <f:view>
+
+                    <b:panel title="Cadastrar Nova Familia de produtos" collapsible="false" look="primary">
+                        <h:form>
+                              <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+                                                                      <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                     <p:outputLabel  value="Família de produto"  />  
+                                     <p:inputText value="#{familiaProdutoMBean.familiaProduto.descricaoFamiliaProduto}" size="40"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                              
+                                
+                            </p:panelGrid>   
+                            <p:commandButton action="#{familiaProdutoMBean.save}" value="Guardar" ajax="false"/>
+                        </h:form>
+                    </b:panel>
+
+                    <b:panel title="Família de produtos" collapsible="false" look="primary">
+                        
+                         <h:form>
+                             <p:dataTable value="#{familiaProdutoMBean.familiaProdutos}" var="item">
+                          
+                                 
+                                 <p:column headerText="Categoria">
+
+                                <h:outputText value="#{item.descricaoFamiliaProduto}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                        
+                    </b:panel>
+                   
+
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

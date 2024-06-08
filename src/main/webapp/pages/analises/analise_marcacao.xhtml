@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <center>
+                    <h:graphicImage name="barra3.jpg" library="images"/>
+                    <h2>Marcação de análises</h2>
+                    <hr/>
+                </center>
+
+                <h:form>
+
+
+                    <p:growl/>
+
+
+
+
+
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+
+                        <h:panelGroup>
+                            <h:panelGrid columns="1">
+                                <h:outputLabel for="@next" value="Escolha o tipo de análise" style="font-size: 1.2em; font-weight: bold" />
+                                <p:selectOneMenu id="tipo_analise" value="#{analiseMB.tipoAnalise}" converter="tipoAnaliseConverter">
+                                    <f:selectItem itemLabel="--Seleccionar Categoria--" value="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{analiseMB.tipoAnalises}" var="tipoAnalises" itemValue="#{tipoAnalise}" itemLabel="#{tipoAnalise.descricaoTipoAnalise}"/>
+                                    <f:ajax listener="#{analiseMB.carregaAnalisesPorCategoria}" render="tblAnalises"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+                        </h:panelGroup>
+
+
+
+                        <h4 style="text-align: center; font-size: 1.3em;"> Análises disponiveis</h4>
+                        <p:dataTable id="tblAnalises" var="item" value="#{analiseMB.analisesSeleccionadas}" >
+                            <p:column>
+                                <f:facet name="header">Código</f:facet>
+                                <h:outputText value="#{item.idAnalise}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header"> Descrição</f:facet>
+                                <h:outputText value="#{item.descricaoAnalise}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header"> Preço</f:facet>
+                                <h:outputText value="#{item.precoAnalise}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">Adicionar ao pedido</f:facet>
+                                <h:commandButton value="Adicionar ao pedido" action="#{agendaAnaliseDetalhesBean.addicionarAnaliseCesto(item)}"/>
+                            </p:column>
+                        </p:dataTable>      
+                    </p:panelGrid>
+
+                </h:form>
+
+                <h:panelGroup>
+                    <h:form>
+                       
+
+                        <p:column headerText="Operacão">
+                            <p:commandButton value="Ver analises solicitadas" action="cesto_analises_seleccionadas"  ajax="false"/>
+                        </p:column>
+                    </h:form>
+                </h:panelGroup>
+
+
+
+
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>
