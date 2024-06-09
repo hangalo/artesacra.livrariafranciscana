@@ -158,7 +158,7 @@ public class Profissional implements Serializable{
 
     @Override
     public String toString() {
-        return "Profissional{" + "nomeProfissional=" + nomeProfissional + ", sobrenomeProfissional=" + sobrenomeProfissional + '}';
+        return this.nomeProfissional;
     }
 
   

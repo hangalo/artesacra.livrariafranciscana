@@ -212,17 +212,7 @@ public class FacturaVendaProdutoDetalhesBean implements Serializable {
         carrinho.clear();
     }
 
-    public String cancelarVendaAdministracao() {
-        carrinho.clear();
-        if (produtoMBean.produtosSeleccionados != null) {
-            produtoMBean.produtosSeleccionados.clear();
-        } else {
-            return "/pages/vendas/factura_iniciar_venda?faces-redirect=true";
-        }
-
-        return "/pages/vendas/factura_iniciar_venda?faces-redirect=true";
-    }
-
+    
     public String cancelarVendaGeral() {
         carrinho.clear();
         if (produtoMBean.produtosSeleccionados != null) {

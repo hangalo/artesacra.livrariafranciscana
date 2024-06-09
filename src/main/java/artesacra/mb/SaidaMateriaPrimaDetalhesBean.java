@@ -30,6 +30,21 @@ public class SaidaMateriaPrimaDetalhesBean implements Serializable {
     private SaidaMateriaPrima saidaMateriaPrima = new SaidaMateriaPrima();
     private SaidaMateriaPrimaDetalhesDAO itemDAO = new SaidaMateriaPrimaDetalhesDAO();
     private MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
+   int numberOfItems = 0;
+
+    public List<SaidaMateriaPrimaDetalhes> getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(List<SaidaMateriaPrimaDetalhes> carrinho) {
+        this.carrinho = carrinho;
+    }
+    
+    
+    
+    
+    
+    
 
     public String addicionarProdutoCarrinho(MateriaPrima materiaPrima) {
         int index = isExisting(materiaPrima);
@@ -41,7 +56,7 @@ public class SaidaMateriaPrimaDetalhesBean implements Serializable {
             this.carrinho.get(index).setQuanditadeSaida(quantidade);
         }
         // return "carrinho?face-redirect=true";
-        return null;
+        return "iniciar_registo_saida_materia_prima?face-redirect=true";
     }
 
     private int isExisting(MateriaPrima materiaPrima) {
@@ -104,6 +119,30 @@ public class SaidaMateriaPrimaDetalhesBean implements Serializable {
         return results;
     }
 
+    
+    
+     public void delete(SaidaMateriaPrimaDetalhes it) {
+        if (this.carrinho != null && !this.carrinho.isEmpty()) {
+            it.decrementQuantity();
+            if (it.getQuanditadeSaida()<=0) {
+                this.carrinho.remove(it);
+            }
+            numberOfItems--;
+        }
+
+    }
+    
+       public String cancelarSaidaAdministracao() {
+           this.carrinho.clear();
+        return "/pages/saida_materia_prima/iniciar_registo_saida_materia_prima?faces-redirect=true";
+    }
+
+       
+        public String novaSaidaAdministracao() {
+            this.carrinho.clear();
+        return "/pages/saida_materia_prima/iniciar_registo_saida_materia_prima?faces-redirect=true";
+    }
+    
     public long numeroItens() {
         long s = 0;
         for (SaidaMateriaPrimaDetalhes it : this.carrinho) {
@@ -113,10 +152,7 @@ public class SaidaMateriaPrimaDetalhesBean implements Serializable {
     }
 
     public void registarSaida() {
-
-        saidaMateriaPrimaBean.getSaidaMateriaPrima().setProfissional(profissional);
-        saidaMateriaPrimaBean.getSaidaMateriaPrima().setSectorProducao(sectorProducao);
-
+       
         //chamada do metodo que regista a factura actual
         saidaMateriaPrimaBean.registarSaidaDeMateriaPrima();
 

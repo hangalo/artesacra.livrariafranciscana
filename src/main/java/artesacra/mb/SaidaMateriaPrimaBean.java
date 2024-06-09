@@ -1,18 +1,17 @@
-
 package artesacra.mb;
 
 import artesacra.dao.SaidaMateriaPrimaDAO;
+import artesacra.dbutil.DateUtil;
 import artesacra.modelo.SaidaMateriaPrima;
-import artesacra.modelo.TipoProduto;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-
+import javax.enterprise.context.SessionScoped;
 
 @Named(value = "saidaMateriaPrimaBean")
-@RequestScoped
-public class SaidaMateriaPrimaBean {
-  
+@SessionScoped
+public class SaidaMateriaPrimaBean implements Serializable {
+
     private SaidaMateriaPrimaDAO saidaMateriaPrimaDAO;
 
     private SaidaMateriaPrima saidaMateriaPrima;
@@ -21,10 +20,12 @@ public class SaidaMateriaPrimaBean {
     public void init() {
         saidaMateriaPrimaDAO = new SaidaMateriaPrimaDAO();
         saidaMateriaPrima = new SaidaMateriaPrima();
-       
+        saidaMateriaPrima.setDataSaida(DateUtil.getDataActual());
+
     }
 
-    public void registarSaidaDeMateriaPrima() {       
+    public void registarSaidaDeMateriaPrima() {
+       
         saidaMateriaPrimaDAO.save(saidaMateriaPrima);
     }
 
@@ -36,8 +37,4 @@ public class SaidaMateriaPrimaBean {
         this.saidaMateriaPrima = saidaMateriaPrima;
     }
 
-  
-
-    
-   
 }

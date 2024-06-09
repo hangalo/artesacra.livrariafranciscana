@@ -59,6 +59,9 @@ public class MateriaPrimaAuxBean implements Serializable {
         materiasPrimasSeleccionadas = materiaPrimaDAO.findByTipoProduto(tipoProduto);
     }
 
+   
+
+    
     public String situacaoProdutoStock(int quanditade) {
 
         if (quanditade >= 10) {

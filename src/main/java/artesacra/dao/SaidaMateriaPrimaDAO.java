@@ -16,32 +16,30 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class SaidaMateriaPrimaDAO {
-    
-    private static final String INSERT = "INSERT INTO saida_materia_prima(id_profissional, id_sector_producao) VALUES(?, ?);";
+
+    private static final String INSERT = "INSERT INTO saida_materia_prima(data_saida_materia_prima, id_profissional, id_sector_producao) VALUES(?, ?, ?)";
     private static final String UPDATE = "";
     private static final String DELETE = "";
     private static final String SELECT_ALL = "";
     private static final String SELECT_BY_ID = "";
-   
+
     private static final String SELECT_MAX_ID_REGISTO = "SELECT MAX(id_saida_materia_prima) FROM saida_materia_prima";
 
-    public boolean save(SaidaMateriaPrima factura) {
+    public boolean save(SaidaMateriaPrima saidaMateriaPrima) {
         PreparedStatement ps = null;
         Connection conn = null;
         boolean flagControlo = false;
-        if (factura == null) {
+        if (saidaMateriaPrima == null) {
             System.err.println("FacturaDAO:save: O valor oassado nao pode ser nulo!");
         }
         try {
             conn = ConnectionDB.getConnection();
-
             ps = conn.prepareStatement(INSERT);
-         
-            ps.setInt(1, factura.getProfissional().getIdProfissional());
-            ps.setDouble(3, factura.getSectorProducao().getIdSector());
-           
+            ps.setDate(1, new java.sql.Date(saidaMateriaPrima.getDataSaida().getTime()));
+            ps.setInt(2, saidaMateriaPrima.getProfissional().getIdProfissional());
+            ps.setDouble(3, saidaMateriaPrima.getSectorProducao().getIdSector());
+
             int retorno = ps.executeUpdate();
             if (retorno > 0) {
                 System.out.println("FacturaDAO:save:Dados inseridos com sucesso: " + ps.getUpdateCount());
@@ -90,8 +88,6 @@ public class SaidaMateriaPrimaDAO {
         return factura;
     }
 
-
-    
     public List<FacturaVendaProduto> findAll() {
         PreparedStatement ps = null;
         Connection conn = null;
@@ -128,7 +124,7 @@ public class SaidaMateriaPrimaDAO {
 
                 ultimo = rs.getInt(1);
             }
-             System.out.println("FacturaDAO: buscaUltimaFactura -> Maior factura" + ultimo);
+            System.out.println("FacturaDAO: buscaUltimaFactura -> Maior factura" + ultimo);
         } catch (SQLException ex) {
             System.out.println("FacturaDAO: buscaUltimaFactura -> Erro ao carregar dados" + ex.getMessage());
         } finally {

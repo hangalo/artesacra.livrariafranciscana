@@ -47,11 +47,11 @@
                        
                         <p:column style="font-size: 1.4em; font-weight: bold">
                             <f:facet name="header" >Operação</f:facet>
-                            <p:commandButton value="Adicionar ao pedido" action="#{saidaMateriaPrimaDetalhesBean.addicionarProdutoCarrinho(item)}" style="font-size: 1.1em; font-weight: bold" ajax="false"/>
+                            <p:commandButton value="Adicionar ao cesto" action="#{saidaMateriaPrimaDetalhesBean.addicionarProdutoCarrinho(item)}" style="font-size: .9em; font-weight: bold" ajax="false"/>
                         </p:column>
-                        <p:column rendered="#{saidaMateriaPrimaDetalhesBean.situacaoStock(item)=!1}">
+                        <p:column rendered="#{item.quantidadeStock lt 10}">
                             <f:facet name="header" rendered=""> Aviso</f:facet>
-                            <h:outputText value="#{saidaMateriaPrimaDetalhesBean.situacaoProdutoStock(item)}" style="font-size: 1.3em; color: red; font-weight: bold"/>
+                            <h:outputText value="#{saidaMateriaPrimaDetalhesBean.situacaoProdutoStock(item)}" style="font-size: .9em; color: red; font-weight: bold"/>
                         </p:column>
                     </p:dataTable>      
 
@@ -63,7 +63,7 @@
 
 
                         <p:column headerText="Operacão">
-                            <p:commandButton value="Ver Produtos solicitadas" action="factura_cesto_produtos_seleccionados?faces-redirect=true" style="font-size: 1.5em; font-weight: bold" ajax="false"/>
+                            <p:commandButton value="Ver Materias primas seleccionadas" action="registo_saida_materia_prima_seleccionadas?faces-redirect=true" style="font-size: 1.5em; font-weight: bold" ajax="false"/>
                         </p:column>
                     </h:form>
                 </h:panelGroup>

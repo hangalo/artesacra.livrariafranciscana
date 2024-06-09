@@ -54,4 +54,12 @@ public class SaidaMateriaPrimaDetalhes {
     
     
     
+    public void incrementQuantity() {
+        quanditadeSaida++;
+    }
+
+    public void decrementQuantity() {
+        quanditadeSaida--;
+    }
+    
 }
