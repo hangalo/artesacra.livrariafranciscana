@@ -8,30 +8,52 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="default.css" library="css"/>
         <h:outputStylesheet name="cssLayout.css" library="css"/>
-        <title>Facelets Template</title>
+        <title>Livraria Franciscana- Sistema de Gestão de Materias Primas</title>
     </h:head>
 
     <h:body>
-
-        <div id="top">
-            <ui:insert name="top">Top</ui:insert>
-        </div>
-        <div>
-            <div id="left">
-                <ui:insert name="left">
+        <div id="wrapper">
+            <div id="top">
+                <ui:insert name="top">
                     
-                    <h:link outcome="/pages/materia_prima/materia_prima_lista" value="Lista"/>
+                   <div>
+                    <h:graphicImage library="images" name="logo.jpg" height="80" width="160" /> 
+                </div>    
                 
                 </ui:insert>
             </div>
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
+            <div>
+                <div id="left">
+                    <ui:insert name="left">
+                        <h:form>
+                            <h:commandLink action="/index"  styleClass="button">
+                                <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
+                            </h:commandLink>
+                        </h:form>
+                        <hr/>
+                        <h:panelGrid columns="1">
+                            <h3>Saida</h3>
+                            <h:link outcome="/pages/saida_materia_prima/iniciar_registo_saida_materia_prima" value="Novo Registo"/>
+                            <h3>Pesquisa</h3>
+                            <h:link outcome="/pages/saida_materia_prima/pesquisa/saida_lista_detalhada_entre_datas" value="Entre datas-detalhes"/>
+                            <h:link outcome="/pages/saida_materia_prima/pesquisa/saida_totais_por_materia_prima_lista_entre_datas" value="Entre datas-acumulado"/>
+                        </h:panelGrid>
+                    </ui:insert>
+                </div>
+                <div id="content" class="left_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+            <div id="bottom">
+                <ui:insert name="bottom">
+                    <div style="text-align: center">
+                        <h3> OFM Capuchinhos - 2024</h3>
+                    </div>
+
+
+                </ui:insert>
             </div>
         </div>
-        <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
-        </div>
-
     </h:body>
 
 </html>

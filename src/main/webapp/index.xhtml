@@ -8,32 +8,43 @@
 
         <ui:composition template="./WEB-INF/template/template_geral.xhtml">
 
-            <ui:define name="top">
-                top
-            </ui:define>
 
-            <ui:define name="left">
-                <h:form>
-                    <h:link outcome="/pages/materia_prima/materia_prima_registar" value="Materia prima"/>
-                </h:form>
-                
-                  <h:form>
-                    <h:link outcome="/pages/sector_producao/sector_produicao_registar" value="Sector Produção"/>
-                </h:form>
-                
-                
-                  <h:form>
-                    <h:link outcome="/pages/saida_materia_prima/iniciar_registo_saida_materia_prima" value="Saida de Materia Prima"/>
-                </h:form>
-            </ui:define>
+
+            
 
             <ui:define name="content">
-                content
+                <div style="text-align: center;">
+                    <h2>Livraria Franciscana- Sistema de Gestão de Materias Primas</h2> 
+                </div>
+                <div class="box">
+                    <h:form>
+                        <h:link outcome="/pages/saida_materia_prima/iniciar_registo_saida_materia_prima" value="Saida de Materia Prima"/>
+                    </h:form>
+                </div>
+                <div class="box">
+                      <h:form>
+                    <h:link outcome="/pages/materia_prima/stock/stock_gestao_stock_nova_entrada" value="Entra de Materia Prima (Stock)"/>
+                </h:form>
+                </div>
+                <div class="box">
+                     <h:form>
+                    <h:link outcome="/pages/materia_prima/materia_prima_registar" value="Gestão de Materia prima"/>
+                </h:form>
+                </div>
+                <div class="box">
+                     <h:form>
+                    <h:link outcome="/pages/tabelas/tabelas_configuracoes" value="Tabelas e configurações"/>
+                </h:form>
+                </div>
+                <div class="box">
+                    Graficos (em construção)
+                </div>
+                <div class="box">
+                    Relatorios(em construção)
+                </div>
             </ui:define>
 
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
+            
 
         </ui:composition>
 

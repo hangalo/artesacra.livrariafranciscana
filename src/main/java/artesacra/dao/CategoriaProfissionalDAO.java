@@ -19,13 +19,36 @@ import java.util.List;
  */
 public class CategoriaProfissionalDAO {
     
-    private static final String INSERT = "INSERT INTO categoria_profissional (nome_categoria_profissionalcol) VALUES (?)";
+    private static final String INSERT = "INSERT INTO categoria_profissional (nome_categoria_profissional) VALUES (?)";
     private static final String UPDATE = "UPDATE categoria_medicamento SET categoria_medicamento = ? WHERE id_categoria_medicamento = ?";
     private static final String DELETE = "DELETE FROM categoria_medicamento WHERE id_categoria_medicamento =?";
     private static final String SELECT_ALL = "SELECT id_categoria_profissional, nome_categoria_profissional FROM  categoria_profissional";
     private static final String SELECT_BY_ID = "SELECT id_categoria_profissional, nome_categoria_profissional FROM  categoria_profissional WHERE id_categoria_profissional = ?";
 
 
+    public boolean save(CategoriaProfissional categoria) {
+        PreparedStatement ps = null;
+        Connection conn = null;
+        boolean flagControlo = false;
+        try {
+            conn = ConnectionDB.getConnection();
+            ps = conn.prepareStatement(INSERT);
+            ps.setString(1, categoria.getNomeCategoriaProfissional());
+                 
+            int retorno = ps.executeUpdate();
+            if (retorno > 0) {
+                System.out.println("Dados inseridos com sucesso: " + ps.getUpdateCount());
+                flagControlo = true;
+            }
+            return flagControlo;
+
+        } catch (SQLException e) {
+            System.out.println("Erro ao inserir dados: " + e.getMessage());
+            return false;
+        } finally {
+            ConnectionDB.closeConnection(conn, ps);
+        }
+    }
     
     public CategoriaProfissional findById(Integer id) {
         PreparedStatement ps = null;

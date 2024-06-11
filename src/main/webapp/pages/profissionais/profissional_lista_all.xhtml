@@ -8,36 +8,43 @@
 
     <body>
 
-        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
-
-           
-
-            
+        <ui:composition template="./../../WEB-INF/template/template_tabelas_configuracoes.xhtml">
 
             <ui:define name="content">
-              
+
                 <div class="card">
                     <p:dataTable var="profissional" value="#{profissionalMB.profissionaisLista}">
-                <f:facet name="header">
-                    Lista dos profissionais
-                </f:facet>
+                        <f:facet name="header">
+                            Lista dos Funcionários
+                        </f:facet>
 
-                <p:column headerText="Nome">
-                    <h:outputText value="#{profissional.nomeProfissional}" />
-                </p:column>
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{profissional.nomeProfissional}" />
+                        </p:column>
 
-                <p:column headerText="Sobrenome">
-                    <h:outputText value="#{profissional.sobrenomeProfissional}" />
-                </p:column>
+                        <p:column headerText="Sobrenome">
+                            <h:outputText value="#{profissional.sobrenomeProfissional}" />
+                        </p:column>
+                         <p:column headerText="Telefone">
+                             <h:outputText value="#{profissional.telefoneProfissional}" />
+                        </p:column>
+                          <p:column headerText="E-mails">
+                              <h:outputText value="#{profissional.emailProfissional}" />
+                        </p:column>
+                         <p:column headerText="Data de Nascimento">
+                             <h:outputText value="#{profissional.dataNascimento}" >
+                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
+                             </h:outputText>
+                        </p:column>
 
 
 
 
 
-            </p:dataTable>
-        </div>
-                
-                
+                    </p:dataTable>
+                </div>
+
+
             </ui:define>
 
             <ui:define name="bottom">

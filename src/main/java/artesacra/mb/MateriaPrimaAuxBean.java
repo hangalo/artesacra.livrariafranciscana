@@ -23,7 +23,8 @@ public class MateriaPrimaAuxBean implements Serializable {
     MateriaPrimaDAO materiaPrimaDAO = new MateriaPrimaDAO();
     List<MateriaPrima> listaMateriasPrimas = new ArrayList<>();
     List<MateriaPrima> materiasPrimasSeleccionadas = new ArrayList<>();
-
+    List<MateriaPrima> materiasPrimasGestaoStockSeleccionadas = new ArrayList<>();
+   
     @PostConstruct
     public void inicializar() {
 
@@ -55,11 +56,26 @@ public class MateriaPrimaAuxBean implements Serializable {
         this.materiasPrimasSeleccionadas = materiasPrimasSeleccionadas;
     }
 
+    public List<MateriaPrima> getMateriasPrimasGestaoStockSeleccionadas() {
+        return materiasPrimasGestaoStockSeleccionadas;
+    }
+
+    public void setMateriasPrimasGestaoStockSeleccionadas(List<MateriaPrima> materiasPrimasGestaoStockSeleccionadas) {
+        this.materiasPrimasGestaoStockSeleccionadas = materiasPrimasGestaoStockSeleccionadas;
+    }
+
+    
+    
+    
     public void carregarMateriaPrimaPorTipo(TipoProduto tipoProduto) {
         materiasPrimasSeleccionadas = materiaPrimaDAO.findByTipoProduto(tipoProduto);
     }
 
    
+     public void carregarMateriaPrimaPorTipoStock(TipoProduto tipoProduto) {
+        materiasPrimasGestaoStockSeleccionadas = materiaPrimaDAO.findByTipoProduto(tipoProduto);
+
+    }
 
     
     public String situacaoProdutoStock(int quanditade) {

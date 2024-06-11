@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+     
+
+    <body>
+
+      <ui:composition template="./../../WEB-INF/template/template_tabelas_configuracoes.xhtml">
+
+
+
+
+
+            <ui:define name="content">
+                          
+
+                <f:view>
+
+                    
+                        <h:form>
+                            <p:growl id="growl" for="sticky-key" showDetail="true" sticky="true"/>
+                           
+                            <h:panelGroup>
+                                <h:panelGrid columns="1">
+                                     <p:outputLabel  value="Categoria (Funcionários)"  />  
+                                     <p:inputText value="#{categoriaProfissionalMB.categoriaProfissional.nomeCategoriaProfissional}" size="40"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+                              
+                                
+                             
+                            <p:commandButton action="#{categoriaProfissionalMB.save}" resetValues="true" value="Guardar"  update=":frmCategorias:tblCategorias growl"/>
+                        </h:form>
+                
+
+                   
+                        
+                    <h:form id="frmCategorias" style="margin-top: 30px;">
+                        <p:dataTable id="tblCategorias" value="#{categoriaProfissionalMB.categoriasProfissionais}" var="item">
+                          
+                                 
+                                 <p:column headerText="Categoria">
+
+                                     <h:outputText value="#{item.nomeCategoriaProfissional}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                        
+                   
+                   
+
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

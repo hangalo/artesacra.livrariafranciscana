@@ -29,26 +29,29 @@
             <p:panelGrid columns="2">
                 <h:panelGroup>
                     <h:panelGrid columns="2" style="margin-left: 12px;">
-                         <h:panelGrid columns="1">
-                               
-                                <h:inputHidden value="#{saidaMateriaPrimaBean.saidaMateriaPrima.dataSaida}" >
-                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                                </h:inputHidden>  
-                              <p:outputLabel value="Profissional:" />
-                              <p:selectOneMenu style="width:300px" id="cliente" filter="true" filterMatchMode="startsWith" label="Profissional" value="#{saidaMateriaPrimaBean.saidaMateriaPrima.profissional}" required="true" requiredMessage="Campo obrigatório" converter="profissionalConverter">
-                                    <f:selectItem itemLabel="--Seleccione o profissional--" value="#{null}" noSelectionOption="true"/>
-                                    <f:selectItems value="#{profissionalMB.profissionaisLista}" var="profissional" itemValue="#{profissional}" itemLabel="#{profissional.nomeProfissional} #{profissional.sobrenomeProfissional}"/>
-                                </p:selectOneMenu>
+                        <h:panelGrid columns="1">
 
-                            </h:panelGrid>
-                           
-                        <p:panel header="Saida de materia prima: #{saidaMateriaPrimaBean.saidaMateriaPrima.dataSaida}" style="width: 20em;">
-                                                
-                                <p:outputLabel value="Sector:"/>
-                                <p:selectOneRadio id="sector" value="#{saidaMateriaPrimaBean.saidaMateriaPrima.sectorProducao}" converter="sectorProducaoConverter" required="true" layout="pageDirection">
-                                    <f:selectItems value="#{sectorProducaoBean.listaSectoresProducoes}" var="sector" itemValue="#{sector}" itemLabel="#{sector.nomeSector}" />
-                                </p:selectOneRadio >
-                            
+                            <h:inputHidden value="#{saidaMateriaPrimaBean.saidaMateriaPrima.dataSaida}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:inputHidden>  
+                            <p:outputLabel value="Profissional:" />
+                            <p:selectOneMenu style="width:300px" id="cliente" filter="true" filterMatchMode="startsWith" label="Profissional" value="#{saidaMateriaPrimaBean.saidaMateriaPrima.profissional}" required="true" requiredMessage="Campo obrigatório" converter="profissionalConverter">
+                                <f:selectItem itemLabel="--Seleccione o profissional--" value="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{profissionalMB.profissionaisLista}" var="profissional" itemValue="#{profissional}" itemLabel="#{profissional.nomeProfissional} #{profissional.sobrenomeProfissional}"/>
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+
+                        <p:panel header="Saida de materia prima" style="width: 20em;">
+                            <p:outputLabel value="#{saidaMateriaPrimaBean.saidaMateriaPrima.dataSaida}">
+                                <f:convertDateTime pattern="dd/MM/yyy"/>
+                            </p:outputLabel>
+                            <hr/>
+                            <p:outputLabel value="Sector:"/>
+                            <p:selectOneRadio id="sector" value="#{saidaMateriaPrimaBean.saidaMateriaPrima.sectorProducao}" converter="sectorProducaoConverter" required="true" layout="pageDirection">
+                                <f:selectItems value="#{sectorProducaoBean.listaSectoresProducoes}" var="sector" itemValue="#{sector}" itemLabel="#{sector.nomeSector}" />
+                            </p:selectOneRadio >
+
                         </p:panel>
 
                     </h:panelGrid>
@@ -57,7 +60,7 @@
                     <p:dataTable var="it" value="#{saidaMateriaPrimaDetalhesBean.carrinho}" emptyMessage="Nenhum Produtos seleccionado" >
 
 
-                       
+
                         <p:column>
                             <f:facet name="header">Materia Prima</f:facet>
                             <h:outputText value="#{it.materiaPrima.nomeMateriaPrima}"/>
@@ -70,7 +73,7 @@
                         </p:column> 
 
 
-                       
+
 
                         <p:column>
                             <f:facet name="header">Operação</f:facet>
@@ -84,7 +87,7 @@
 
             </p:panelGrid>
             <p:panelGrid columns="1" styleClass="companyHeaderGrid">
-               
+
                 <h:panelGroup>
                     <p:commandButton value="Registar Venda/Concluir"   action="#{saidaMateriaPrimaDetalhesBean.registarSaida()}" ajax="false" update="growl" style="font-size: 1.4em; font-weight: bold"/>
                 </h:panelGroup>
@@ -100,11 +103,7 @@
 
         </h:form>
 
-        <h:form>
-            <h:commandLink action="/index"  styleClass="button">
-                <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
-            </h:commandLink>
-        </h:form>
+       
     </h:body>
 </html>
 

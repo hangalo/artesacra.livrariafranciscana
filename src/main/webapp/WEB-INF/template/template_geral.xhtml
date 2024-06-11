@@ -8,26 +8,35 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="default.css" library="css"/>
         <h:outputStylesheet name="cssLayout.css" library="css"/>
-        <title>Facelets Template</title>
+        <title>Livraria Franciscana- Sistema de Gestão de Materias Primas</title>
     </h:head>
 
     <h:body>
-
+        <div id="wrapper">
         <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+            <ui:insert name="top">
+                <div>
+                   <h:graphicImage library="images" name="logo.jpg" height="80" width="160" /> 
+                </div>
+               
+                  
+               
+            </ui:insert>
         </div>
         <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
+           
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </div>
         <div id="bottom">
-            <ui:insert name="bottom">Bottom</ui:insert>
+            <ui:insert name="bottom">
+                <div style="text-align: center">
+                <h3> OFM Capuchinhos - 2024</h3>
+            </div>
+            </ui:insert>
         </div>
-
+</div>
     </h:body>
 
 </html>

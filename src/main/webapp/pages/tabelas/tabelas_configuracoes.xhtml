@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../../WEB-INF/template/template_tabelas_configuracoes.xhtml">
+
+
+
+
+
+            <ui:define name="content">
+                <div>
+                    <h2>Livraria Franciscana- Sistema de Gestão de Materias Primas</h2> 
+                </div>
+                <div class="box">
+                    <h:form>
+                        <h:link outcome="/pages/sector_producao/sector_produicao_registar" value="Sector de Produção"/>
+                    </h:form>
+                </div>
+                <div class="box">
+                    <h:form>
+                        <h:link outcome="/pages/tabelas/familia_produto" value="Família de Produtos"/>
+                        <hr/>
+                        <h:link outcome="/pages/tabelas/tipo_produto_novo" value="Tipo de Produto"/>
+                       
+                        
+                    </h:form>
+                </div>
+                <div class="box">
+                    <h:form>
+                        <h:link outcome="/pages/tabelas/categoria_profissional" value="Categoria"/>
+                    </h:form>
+                    <hr/>
+                     <h:link outcome="/pages/profissionais/profissional_novo" value="Funcionário"/>
+                </div>
+                <div class="box">
+                    <h:form>
+                        <h:link outcome="/pages/tabelas/tabelas_configuracoes" value="Tabelas"/>
+                    </h:form>
+                </div>
+               
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

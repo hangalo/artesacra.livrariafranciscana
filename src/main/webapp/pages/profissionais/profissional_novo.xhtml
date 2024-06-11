@@ -4,33 +4,32 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
-        <ui:composition template="../../WEB-INF/template/template_principal.xhtml">
+      <ui:composition template="./../../WEB-INF/template/template_tabelas_configuracoes.xhtml">
 
 
 
 
             <ui:define name="content">
 
-                <b:panel title="Cadastrar Novo Profissional" collapsible="false" look="primary">
+                
                     <h:form>
-                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+                      
 
                             <h:panelGroup>
                                 <h:panelGrid columns="1">
                                     <h:outputLabel value="Nome:"/>
-                                    <p:inputText value="#{profissionalMB.profissional.nomeProfissional}" size="40" required="true"/>
+                                    <p:inputText value="#{profissionalMB.profissional.nomeProfissional}" size="40" required="true" requiredMessage="Campo obrigatório"/>
                                 </h:panelGrid>
                             </h:panelGroup>
 
                             <h:panelGroup>
                                 <h:panelGrid columns="1">
                                     <h:outputLabel value="Sobrenome:"/>
-                                    <p:inputText value="#{profissionalMB.profissional.sobrenomeProfissional}" size="40" required="true"/>
+                                    <p:inputText value="#{profissionalMB.profissional.sobrenomeProfissional}" size="40" required="true" requiredMessage="Campo obrigatório"/>
                                 </h:panelGrid>
                             </h:panelGroup>                         
 
@@ -42,23 +41,21 @@
                             </h:panelGroup>
 
                             <h:panelGroup/>
-                        </p:panelGrid>
+                        
 
-
-                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
-                            <h:panelGroup>
-                                <h:panelGrid columns="1">
+                          <h:panelGroup>
+                                <h:panelGrid columns="2">
                                     <p:outputLabel value="Categoria" />
-                                    <p:selectOneMenu style="width:200px" id="categoria" filter="true" filterMatchMode="startsWith" label="Categoria:" value="#{profissionalMB.profissional.categoriaProfissional}" required="true" converter="categoriaProfissionalConverter">
+                                    <p:selectOneMenu style="width:200px" id="categoria" filter="true" filterMatchMode="startsWith" label="Categoria:" value="#{profissionalMB.profissional.categoriaProfissional}" required="true" requiredMessage="Campo obrigatório" converter="categoriaProfissionalConverter">
                                         <f:selectItem itemLabel="-Seleccione a categoria-" value="#{null}" noSelectionOption="true"/>
                                         <f:selectItems value="#{categoriaProfissionalMB.categoriasProfissionais}" var="categoriaProfissional" itemValue="#{categoriaProfissional}" itemLabel="#{categoriaProfissional.nomeCategoriaProfissional}"/>
                                     </p:selectOneMenu>
                                 </h:panelGrid>
                             </h:panelGroup>  
 
-                        </p:panelGrid>
+                        
 
-                        <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+                        
                             <h:panelGroup>
                                 <h:panelGrid columns="1">
                                     <p:outputLabel value="Sexo:"/>
@@ -67,14 +64,12 @@
                                     </p:selectOneRadio >
                                 </h:panelGrid>
                             </h:panelGroup>
-                        </p:panelGrid>
+                        
 
 
 
 
-                        <b:panel title="Contactos" collapsible="false" look="primary">
-                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
-
+                        
                                 <h:panelGroup>
                                     <h:panelGrid columns="1">
                                         <h:outputLabel value="E-mail:"/>
@@ -94,14 +89,10 @@
                                 <h:panelGroup/>
                                 <h:panelGroup/>
 
-                            </p:panelGrid>
+                            
 
 
-                        </b:panel>
-
-                        <b:panel title="Endereço" collapsible="false" look="primary">
-
-                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
+                     
 
                                 <h:panelGroup>
                                     <h:panelGrid columns="1">
@@ -138,10 +129,7 @@
                                     </h:panelGrid>
                                 </h:panelGroup>
 
-                            </p:panelGrid>
-
-                            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid" layout="grid" >
-
+                          
                               
 
                                 <h:panelGroup>
@@ -154,16 +142,16 @@
                                     </h:panelGrid>
                                 </h:panelGroup>  
 
-                            </p:panelGrid>
+                            
 
-                        </b:panel>
+                        
                      
                         <h:panelGrid columns="2">
                             <p:commandButton action="#{profissionalMB.save}" value="Guardar" ajax="false"/>
                         </h:panelGrid>
                     </h:form>
 
-                </b:panel>
+                
             </ui:define>
 
 

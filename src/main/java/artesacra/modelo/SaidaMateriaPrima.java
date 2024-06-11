@@ -15,16 +15,20 @@ public class SaidaMateriaPrima {
     private Date dataSaida;
     private Profissional profissional;
     private SectorProducao sectorProducao;
+    private Date dataRegisto;
 
     public SaidaMateriaPrima() {
     }
 
-    public SaidaMateriaPrima(Integer idSaida, Date dataSaida, Profissional profissional, SectorProducao sectorProducao) {
+    public SaidaMateriaPrima(Integer idSaida, Date dataSaida, Profissional profissional, SectorProducao sectorProducao, Date dataRegisto) {
         this.idSaida = idSaida;
         this.dataSaida = dataSaida;
         this.profissional = profissional;
         this.sectorProducao = sectorProducao;
+        this.dataRegisto = dataRegisto;
     }
+
+    
 
     public Integer getIdSaida() {
         return idSaida;
@@ -56,6 +60,14 @@ public class SaidaMateriaPrima {
 
     public void setSectorProducao(SectorProducao sectorProducao) {
         this.sectorProducao = sectorProducao;
+    }
+
+    public Date getDataRegisto() {
+        return dataRegisto;
+    }
+
+    public void setDataRegisto(Date dataRegisto) {
+        this.dataRegisto = dataRegisto;
     }
     
     

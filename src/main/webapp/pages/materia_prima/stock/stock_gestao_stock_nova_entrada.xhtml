@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+
+    <body>
+
+        <ui:composition template="./../../../WEB-INF/template/template_entrada_materia_prima.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <center>
+                   
+                    <h2>Entrada - Gestão de stock</h2>
+                    <hr/>
+                </center>
+                <h:form>
+                    <h3>Seleccione uma categoria clicando</h3>
+                    <ui:repeat var="tp" value="#{tipoProdutoMBean.tipoProdutos}">                             
+                        <p:commandButton value="#{tp.descricaoTipoProduto}" action="#{materiaPrimaAuxBean.carregarMateriaPrimaPorTipoStock(tp)}" style="margin: 6px" ajax="false"/>      
+                    </ui:repeat>
+
+                </h:form>
+                <hr/>
+                <h:form>
+                    <h4 style="text-align: center; font-size: 1.3em;"> Materias primas com menos de 5 unidades</h4>
+                    <p:dataTable id="tblProdutosStock" var="item" value="#{materiaPrimaAuxBean.materiasPrimasGestaoStockSeleccionadas}" >
+                        <p:column>
+                            <f:facet name="header">Materia Prima</f:facet>
+                            <h:outputText value="#{item.nomeMateriaPrima}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header"> Quantidade em Stock</f:facet>
+                            <h:outputText value="#{item.quantidadeStock}"/>
+                        </p:column>
+
+                        
+
+                        <p:column headerText="Gerir Stock">
+                                                                    
+                                <h:commandLink id="link_detalhes" action="stock_novo_definir_quantidade?faces-redirect=true">
+                                    <h:outputText value="Registar" />
+                                    <f:setPropertyActionListener target="#{stockMateriaPrimaMBean.stockMateriaPrima.materiaPrima}" value="#{item}" />
+                                </h:commandLink>
+
+                        </p:column>
+                    </p:dataTable>      
+
+
+                </h:form>
+
+
+
+
+
+
+
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -8,21 +8,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="default.css" library="css"/>
         <h:outputStylesheet name="cssLayout.css" library="css"/>
-       <title>Livraria Franciscana- Sistema de Gestão de Materias Primas</title>
+         <title>Livraria Franciscana- Sistema de Gestão de Materias Primas</title>
     </h:head>
 
     <h:body>
         <div id="wrapper">
         <div id="top">
             <ui:insert name="top">
+
                 <div>
                     <h:graphicImage library="images" name="logo.jpg" height="80" width="160" /> 
-                </div>    
+                </div>   
+
             </ui:insert>
         </div>
         <div>
             <div id="left">
-
                 <ui:insert name="left">
                     <h:form>
                         <h:commandLink action="/index"  styleClass="button">
@@ -31,11 +32,13 @@
                     </h:form>
                     <hr/>
                     <h:panelGrid columns="1">
-                        <h3>Matéria Prima</h3>
-                        <h:link outcome="/pages/materia_prima/materia_prima_registar" value="Novo Registo"/>
-                        <hr/>
-                        <h:link outcome="/pages/materia_prima/materia_prima_lista" value="Lista geral"/>
+                          <h3>Entrada</h3>
+                        <h:link outcome="/pages/materia_prima/stock/stock_gestao_stock_nova_entrada" value="Novo Registo"/>
+                        <h3>Stock</h3>
+                        <h:link outcome="/pages/materia_prima/stock/stock_materia_prima_lista_detalhada_entre_datas" value="Entre datas -detalhado"/>
+                        <h:link outcome="/pages/materia_prima/stock/stock_materia_prima_acumulado_entre_datas" value="Entre datas -acumulado"/>
                     </h:panelGrid>
+
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
@@ -44,11 +47,9 @@
         </div>
         <div id="bottom">
             <ui:insert name="bottom">
-                
-               <div style="text-align: center">
+                <div style="text-align: center">
                 <h3> OFM Capuchinhos - 2024</h3>
             </div>
-            
             </ui:insert>
         </div>
 </div>

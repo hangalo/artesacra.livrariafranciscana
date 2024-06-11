@@ -2,6 +2,7 @@
 package artesacra.modelo;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 public class StockMateriaPrima {
@@ -9,10 +10,9 @@ public class StockMateriaPrima {
     private Integer idStock;
     private Date dataCompra;
     private Date dataActualizacao;
-    private Date dataRegisto;
     private Integer quantidade;
     private Double precoCompra;
-    private String localizacao;
+    private String colocacao;
     private MateriaPrima materiaPrima;
     private Profissional profissional;
 
@@ -43,13 +43,15 @@ public class StockMateriaPrima {
         this.dataActualizacao = dataActualizacao;
     }
 
-    public Date getDataRegisto() {
-        return dataRegisto;
+    public String getColocacao() {
+        return colocacao;
     }
 
-    public void setDataRegisto(Date dataRegisto) {
-        this.dataRegisto = dataRegisto;
+    public void setColocacao(String colocacao) {
+        this.colocacao = colocacao;
     }
+
+  
 
     public Integer getQuantidade() {
         return quantidade;
@@ -67,13 +69,7 @@ public class StockMateriaPrima {
         this.precoCompra = precoCompra;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
-    }
-
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
-    }
+  
 
     public MateriaPrima getMateriaPrima() {
         return materiaPrima;
@@ -90,5 +86,35 @@ public class StockMateriaPrima {
     public void setProfissional(Profissional profissional) {
         this.profissional = profissional;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Objects.hashCode(this.idStock);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StockMateriaPrima other = (StockMateriaPrima) obj;
+        return Objects.equals(this.idStock, other.idStock);
+    }
+
+    @Override
+    public String toString() {
+        return this.materiaPrima.getNomeMateriaPrima();
+    }
+    
+    
+    
     
 }

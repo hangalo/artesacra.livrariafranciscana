@@ -16,26 +16,42 @@
         <div id="top">
             <ui:insert name="top">
                 <div>
-                    <h:graphicImage library="images" name="logo.jpg" height="80" width="160" /> 
-                </div>    
+                   <h:graphicImage library="images" name="logo.jpg" height="80" width="160" /> 
+               </div>    
             </ui:insert>
         </div>
         <div>
             <div id="left">
-
+                
                 <ui:insert name="left">
-                    <h:form>
+                     <h:form>
                         <h:commandLink action="/index"  styleClass="button">
                             <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
                         </h:commandLink>
                     </h:form>
                     <hr/>
                     <h:panelGrid columns="1">
-                        <h3>Matéria Prima</h3>
-                        <h:link outcome="/pages/materia_prima/materia_prima_registar" value="Novo Registo"/>
-                        <hr/>
-                        <h:link outcome="/pages/materia_prima/materia_prima_lista" value="Lista geral"/>
-                    </h:panelGrid>
+                    <h3>Sector de Produção</h3>
+                     <h:link outcome="/pages/sector_producao/sector_produicao_registar" value="Novo Registo"/>
+                     <h:link outcome="/pages/sector_producao/sector_producao_lista" value="Lista geral"/>
+                     <hr/>
+                     <h3>Tipo de Produto</h3>
+                     <h:link outcome="/pages/tabelas/tipo_produto_novo" value="Novo Registo/Lista"/>
+                     <hr/>
+                      <h3>Famílias dos produtos</h3>
+                     <h:link outcome="/pages/tabelas/familia_produto" value="Novo Registo/Lista"/>
+                     <hr/>
+                     
+                      <h3>Funcionário</h3>
+                     <h:link outcome="/pages/profissionais/profissional_novo" value="Novo Registo"/>
+                     <h:link outcome="/pages/profissionais/profissional_lista_all" value="Lista geral"/>
+                     <hr/>
+                      <h3>Categorias(dos Funcionários)</h3>
+                     <h:link outcome="/pages/tabelas/categoria_profissional" value="Novo Registo/Lista"/>
+                   
+                     <hr/>
+                     
+                </h:panelGrid>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
@@ -44,11 +60,9 @@
         </div>
         <div id="bottom">
             <ui:insert name="bottom">
-                
-               <div style="text-align: center">
+                 <div style="text-align: center">
                 <h3> OFM Capuchinhos - 2024</h3>
             </div>
-            
             </ui:insert>
         </div>
 </div>

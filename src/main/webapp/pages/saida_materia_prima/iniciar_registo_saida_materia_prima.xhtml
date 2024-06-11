@@ -15,13 +15,13 @@
             <ui:define name="content">
 
                 <center>
-                    <h:graphicImage name="barra3.jpg" library="images"/>
-                    <h2>Tipo de Matéria Prima</h2>
+                  
+                    <h2>Registar Saída de Matéria prima</h2>
                     <hr/>
                 </center>
 
                 <h:form>
-                    
+                    <h3>Seleccione uma categoria clicando</h3>
                   <ui:repeat var="tp" value="#{tipoProdutoMBean.tipoProdutos}">                             
                       <p:commandButton value="#{tp.descricaoTipoProduto}" action="#{materiaPrimaAuxBean.carregarMateriaPrimaPorTipo(tp)}" style="margin: 6px" ajax="false"/>      
                   </ui:repeat>
@@ -31,10 +31,10 @@
                 <h:form>
 
                     <p:growl/>
-                 <h4 style="text-align: center; font-size: 1.4em;"> Produtos disponíveis</h4>
-                    <h2 style="color: #00AA66">N.º de Itens no carrinho: #{saidaMateriaPrimaDetalhesBean.numeroItens()}</h2>
+                 <h4 style="text-align: center; font-size: 1.4em;"> Materias primas disponíveis no grupo</h4>
+                    <h2 style="color: #00AA66">N.º de Itens no cesto #{saidaMateriaPrimaDetalhesBean.numeroItens()}</h2>
                    
-                    <p:dataTable id="tblMateriasPrimas" var="item" value="#{materiaPrimaAuxBean.materiasPrimasSeleccionadas}" >
+                    <p:dataTable id="tblMateriasPrimas" var="item" value="#{materiaPrimaAuxBean.materiasPrimasSeleccionadas}" emptyMessage="Nenhum item adicionado ainda" >
 
                         <p:column style="font-size: 1.4em; font-weight: bold">
                             <f:facet name="header"> Quantidade</f:facet>
@@ -73,11 +73,6 @@
 
 
 
-                <h:form>
-                    <h:commandLink action="/index"  styleClass="button">
-                        <h:graphicImage name="home.png" library="images" height="60" width="60"/>  
-                    </h:commandLink>
-                </h:form>
 
             </ui:define>
 
